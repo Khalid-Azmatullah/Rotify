@@ -41,6 +41,23 @@
     }
   }
 
+  .player {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #F1F3F4;
+  }
   audio::-webkit-media-controls-play-button {
-    transform: scale(3, 3); /* Scale the button to 2 times its original size */
+    transform: scale(3, 3);
+    padding-right: 50px;
+  }
+
+  #myInput {
+    width: 100%;
+    background: #f8f8f8;
+    padding: 12px 20px 12px 17px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    border-radius: 10px;
   }

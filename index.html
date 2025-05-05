@@ -13,14 +13,18 @@
 
 <div style="overflow:auto">
   <div class="menu">
-    <div class="menuitem"><h4>Browse through available songs:</h4></div>
-    <div class="menuitem"><a href="LS/"></a></div>
-    <div class="menuitem">Transport</div>
-    <div class="menuitem">History</div>
-    <div class="menuitem">Gallery</div>
+    <div class="menuitem"><h4>Search available songs:</h4></div>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder= "Search  "  title="Type in a name">
+    <div id="sg_list">    
+        <div class="menuitem">Wow</div>
+        <div class="menuitem">Transport</div>
+        <div class="menuitem">History</div>
+        <div class="menuitem">Gallery</div>
+    </div>
+
   </div>
 
-  <div class="main">
+  <div class="main">    
     <h2>The Walk</h2>
     <p>The walk from Monterosso to Riomaggiore will take you approximately two hours, give or take an hour depending on the weather conditions and your physical shape.</p>
     <img src="img_5terre.jpg" style="width:100%">
@@ -41,11 +45,29 @@
 
 <div class="player">
     <audio controls style="width: 100%" >
-        <source src="test.m4a" type="audio/mpeg">
+        <source id="player" src="test.m4a" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
 </div>
 
+
+<script>
+    function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("sg_list");
+    li = ul.getElementsByClassName("menuitem");
+    for (i = 0; i < li.length; i++) {
+        txtValue = li[i].textContent || li[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
 </body>
 </html>
 
