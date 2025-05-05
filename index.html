@@ -16,7 +16,7 @@
     <div class="menuitem"><h4>Search available songs:</h4></div>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder= "Search  "  title="Type in a name">
     <div id="sg_list">    
-        <div class="menuitem">Wow</div>
+        <div class="menuitem" id="#Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill">Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill</div>
         <div class="menuitem">Transport</div>
         <div class="menuitem">History</div>
         <div class="menuitem">Gallery</div>
@@ -44,7 +44,7 @@
 <div style="background-color:#f1f1f1;text-align:center;padding:10px;margin-top:7px;font-size:12px;"> This web page is a part of a demonstration of fluid web design made by w3schools.com. Resize the browser window to see the content respond to the resizing.</div>
 
 <div class="player">
-    <audio controls style="width: 100%" >
+    <audio controls style="width: 100%" id="audio_p">
         <source id="player" src="test.m4a" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
@@ -67,6 +67,24 @@
         }
     }
 }
+
+const source = document.getElementById('player');
+const divs = document.querySelectorAll('.menuitem');
+const audio = document.getElementById('audio_p');
+
+// Loop through each div and add a click event listener
+divs.forEach(div => {
+  div.addEventListener('click', function() {
+    let newSrc = this.id;
+    newSrc = newSrc.slice(1);
+    source.src = 'Songs/' + newSrc + '.m4a';
+    console.log('Songs/' + newSrc + '.m4a');
+    audio.load()
+    audio.play().catch(error => {
+       console.error('Error playing video:', error);
+    });
+  });
+});
 </script>
 </body>
 </html>
