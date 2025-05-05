@@ -49,7 +49,7 @@
     background-color: #F1F3F4;
   }
   audio::-webkit-media-controls-play-button {
-    transform: scale(3, 3);
+    transform: scale(2.5, 2.5);
     padding-right: 50px;
   }
 
