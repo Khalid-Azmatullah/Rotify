@@ -15,7 +15,15 @@
   <div class="menu">
     <div class="menuitem"><h4>Search available songs:</h4></div>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder= "Search  "  title="Type in a name">
-    <div id="sg_list"> <div class="menuitem" id="#Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill">Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill</div> 
+    <div id="sg_list"> <div class="menuitem" id="#Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic">Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic</div> 
+<div class="menuitem" id="#Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill">Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill</div> 
+<div class="menuitem" id="#Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense">Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense</div> 
+<div class="menuitem" id="#Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies">Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies</div> 
+<div class="menuitem" id="#Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid">Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid</div> 
+<div class="menuitem" id="#Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 ">Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 </div> 
+<div class="menuitem" id="#Shubh - Cheques (Official Music Video)">Shubh - Cheques (Official Music Video)</div> 
+<div class="menuitem" id="#Shubh - One Love (Official Audio)">Shubh - One Love (Official Audio)</div> 
+<div class="menuitem" id="#SUNIYAN SUNIYAN (Official Video) Juss x MixSingh">SUNIYAN SUNIYAN (Official Video) Juss x MixSingh</div> 
 <div class="menuitem" id="#WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024">WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024</div> 
     </div>
 
@@ -70,7 +78,7 @@ const audio = document.getElementById('audio_p');
 
 ///
 
-const audioList = ['Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill.m4a','WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024.m4a',];
+const audioList = ['Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic.m4a','Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill.m4a','Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense.m4a','Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies.m4a','Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid.m4a','Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 .m4a','Shubh - Cheques (Official Music Video).m4a','Shubh - One Love (Official Audio).m4a','SUNIYAN SUNIYAN (Official Video) Juss x MixSingh.m4a','WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024.m4a',];
 
 
 
@@ -79,7 +87,7 @@ let currentAudioIndex = 0;
 // Function to load and play the next video
 function playNextAudio() {
   // Change the video source
-  source.src = audioList[currentAudioIndex];
+  source.src = 'Songs/' + audioList[currentAudioIndex];
 
   // Load the new video and play it
   audio.load();

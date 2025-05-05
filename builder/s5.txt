@@ -7,7 +7,7 @@ let currentAudioIndex = 0;
 // Function to load and play the next video
 function playNextAudio() {
   // Change the video source
-  source.src = audioList[currentAudioIndex];
+  source.src = 'Songs/' + audioList[currentAudioIndex];
 
   // Load the new video and play it
   audio.load();
