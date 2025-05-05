@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="index.css">
+</head>
+<body style="font-family:Verdana;">
+
+<div style="background-color:#f1f1f1;padding:15px;">
+  <h1>Rotify</h1>
+  <h3>Music for Everyone</h3>
+</div>
+
+<div style="overflow:auto">
+  <div class="menu">
+    <div class="menuitem"><h4>Search available songs:</h4></div>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder= "Search  "  title="Type in a name">
+    <div id="sg_list"> 

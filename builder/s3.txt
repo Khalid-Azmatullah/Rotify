@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="index.css">
-</head>
-<body style="font-family:Verdana;">
-
-<div style="background-color:#f1f1f1;padding:15px;">
-  <h1>Rotify</h1>
-  <h3>Music for Everyone</h3>
-</div>
-
-<div style="overflow:auto">
-  <div class="menu">
-    <div class="menuitem"><h4>Search available songs:</h4></div>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder= "Search  "  title="Type in a name">
-    <div id="sg_list"> <div class="menuitem" id="#Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill">Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill</div> 
-<div class="menuitem" id="#WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024">WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024</div> 
     </div>
 
   </div>
@@ -70,44 +51,4 @@ const audio = document.getElementById('audio_p');
 
 ///
 
-const audioList = ['Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill.m4a','WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024.m4a',];
-
-
-
-let currentAudioIndex = 0;
-
-// Function to load and play the next video
-function playNextAudio() {
-  // Change the video source
-  source.src = audioList[currentAudioIndex];
-
-  // Load the new video and play it
-  audio.load();
-  audio.play().catch(error => {
-    console.error('Error playing the video:', error);
-  });
-  
-  // Update the current index for the next video
-  currentAudioIndex = (currentAudioIndex + 1) % audioList.length;  // Loop back to the first video
-}
-
-// Add an event listener for when the current video ends
-audio.addEventListener('ended', playNextAudio);
-
-// Loop through each div and add a click event listener
-divs.forEach(div => {
-  div.addEventListener('click', function() {
-    let newSrc = this.id;
-    newSrc = newSrc.slice(1);
-    source.src = 'Songs/' + newSrc + '.m4a';
-    console.log('Songs/' + newSrc + '.m4a');
-    audio.load()
-    audio.play().catch(error => {
-       console.error('Error playing video:', error);
-    });
-  });
-});
-</script>
-</body>
-</html>
-
+const audioList = [

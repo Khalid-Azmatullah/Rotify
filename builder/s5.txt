@@ -1,0 +1,41 @@
+];
+
+
+
+let currentAudioIndex = 0;
+
+// Function to load and play the next video
+function playNextAudio() {
+  // Change the video source
+  source.src = audioList[currentAudioIndex];
+
+  // Load the new video and play it
+  audio.load();
+  audio.play().catch(error => {
+    console.error('Error playing the video:', error);
+  });
+  
+  // Update the current index for the next video
+  currentAudioIndex = (currentAudioIndex + 1) % audioList.length;  // Loop back to the first video
+}
+
+// Add an event listener for when the current video ends
+audio.addEventListener('ended', playNextAudio);
+
+// Loop through each div and add a click event listener
+divs.forEach(div => {
+  div.addEventListener('click', function() {
+    let newSrc = this.id;
+    newSrc = newSrc.slice(1);
+    source.src = 'Songs/' + newSrc + '.m4a';
+    console.log('Songs/' + newSrc + '.m4a');
+    audio.load()
+    audio.play().catch(error => {
+       console.error('Error playing video:', error);
+    });
+  });
+});
+</script>
+</body>
+</html>
+
