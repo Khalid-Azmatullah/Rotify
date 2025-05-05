@@ -40,3 +40,7 @@
       width: 100%;
     }
   }
+
+  audio::-webkit-media-controls-play-button {
+    transform: scale(3, 3); /* Scale the button to 2 times its original size */
+  }
