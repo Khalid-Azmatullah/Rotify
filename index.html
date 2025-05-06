@@ -74,33 +74,33 @@
 
 const source = document.getElementById('player');
 const divs = document.querySelectorAll('.menuitem');
-const audio = document.getElementById('audio_p');
+const audioPlayer = document.getElementById('audio_p');
 
 ///
 
-const audioList = ['Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic.m4a','Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill.m4a','Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense.m4a','Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies.m4a','Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid.m4a','Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 .m4a','Shubh - Cheques (Official Music Video).m4a','Shubh - One Love (Official Audio).m4a','SUNIYAN SUNIYAN (Official Video) Juss x MixSingh.m4a','WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024.m4a',];
+const tracks = [
+  {
+    src: 'Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic.m4a',
+    title: 'Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic',
+    artist: 'Unkown'
+  },
+  {
+    src: 'Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill.m4a',
+    title: 'Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill',
+    artist: 'Unkown'
+  },
+  {  
+    src: 'Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense.m4a',
+    title: 'Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense',
+    artist: 'Unkown'
+  },
+  {
+    src: 'Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies.m4a',
+    title: 'Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies',
+    artist: 'Unkown'
+   }
+  ]
 
-
-
-let currentAudioIndex = 0;
-
-// Function to load and play the next video
-function playNextAudio() {
-  // Change the video source
-  source.src = 'Songs/' + audioList[currentAudioIndex];
-
-  // Load the new video and play it
-  audio.load();
-  audio.play().catch(error => {
-    console.error('Error playing the video:', error);
-  });
-  
-  // Update the current index for the next video
-  currentAudioIndex = (currentAudioIndex + 1) % audioList.length;  // Loop back to the first video
-}
-
-// Add an event listener for when the current video ends
-audio.addEventListener('ended', playNextAudio);
 
 // Loop through each div and add a click event listener
 divs.forEach(div => {
@@ -109,12 +109,45 @@ divs.forEach(div => {
     newSrc = newSrc.slice(1);
     source.src = 'Songs/' + newSrc + '.m4a';
     console.log('Songs/' + newSrc + '.m4a');
-    audio.load()
-    audio.play().catch(error => {
+    audioPlayer.load()
+    audioPlayer.play().catch(error => {
        console.error('Error playing video:', error);
     });
   });
 });
+
+
+let currentTrackIndex = 0;
+
+function updateMediaSession() {
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: tracks[currentTrackIndex].title,
+      artist: tracks[currentTrackIndex].artist,
+      // artwork: [
+      //   { src: 'artwork.jpg', sizes: '96x96', type: 'image/jpeg' },
+      //   { src: 'artwork.jpg', sizes: '128x128', type: 'image/jpeg' },
+      //   { src: 'artwork.jpg', sizes: '192x192', type: 'image/jpeg' }
+      // ]
+    });
+
+    navigator.mediaSession.setActionHandler('play', () => audioPlayer.play());
+    navigator.mediaSession.setActionHandler('pause', () => audioPlayer.pause());
+    navigator.mediaSession.setActionHandler('previoustrack', () => skipTrack(-1));
+    navigator.mediaSession.setActionHandler('nexttrack', () => skipTrack(1));
+  }
+}
+
+function skipTrack(direction) {
+  currentTrackIndex = (currentTrackIndex + direction + tracks.length) % tracks.length;
+  audioPlayer.src = tracks[currentTrackIndex].src;
+  audioPlayer.play();
+  updateMediaSession();
+}
+
+audioPlayer.addEventListener('play', updateMediaSession);
+audioPlayer.addEventListener('pause', updateMediaSession);
+audioPlayer.addEventListener('ended', () => skipTrack(1));
 </script>
 </body>
 </html>
