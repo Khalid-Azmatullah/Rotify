@@ -3,28 +3,49 @@
   </div>
 
   <div class="main">    
-    <h2>The Walk</h2>
+    <h2 style="padding-bottom: 5px;">The Walk</h2>
     <p>Music has a profound ability to connect people across cultures, transcend barriers, and evoke deep emotions. It serves as a universal language that can heal, inspire, and bring comfort, offering a form of expression that words alone often cannot capture. Given its transformative power, music should be accessible to everyone, regardless of their background or financial situation. When music is made available for free, it levels the playing field, allowing all individuals to explore their creativity, find solace, or experience joy through sound. It nurtures the soul, encourages social connection, and fosters a sense of shared humanity, reminding us that art, in all its forms, should be a right and not a privilege. By ensuring music is free, we embrace its ability to unite, educate, and uplift society as a whole.</p>
   </div>
 
   <div class="right">
-    <h2>What?</h2>
-    <p>A Web Player.</p>
-    <h2>Where?</h2>
-    <p>Anywhere you could dream of.</p>
-    <h2>Price?</h2>
-    <p>Free!</p>
+    <h2 style="padding-bottom: 5px;">What?</h2>
+    <p style="padding-bottom: 10px;">A Web Player.</p>
+    <h2 style="padding-bottom: 5px;">Where?</h2>
+    <p style="padding-bottom: 10px;">Anywhere you could dream of.</p>
+    <h2 style="padding-bottom: 5px;">Price?</h2>
+    <p style="padding-bottom: 10px;">Free!</p>
   </div>
 </div>
 
 
-<div style="background-color:#f1f1f1;text-align:center;padding:10px;margin-top:7px;font-size:12px;"> This web page is a part of a demonstration of independent design.</div>
+<div style="background-color:#f1f1f1;text-align:center;padding:10px;margin-top:7px;font-size:12px;margin-bottom: 200px;"> This web page is a part of a demonstration of independent design.</div>
 
-<div class="player">
-    <audio controls style="width: 100%" id="audio_p">
-        <source id="player" src="test.m4a" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+<div class="audio-player">
+  <!-- <div style="width: 100vw;;transform: translateY(-100px);mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);">kl</div> -->
+  <!-- <div class="album-art">
+    <img src="album-cover.jpg" alt="Album Art">
+  </div> -->
+  <div class="track-info">
+    <span class="track-title marquee-content">&nbsp;</span>
+  </div>
+  <div class="progress-bar">
+    <input type="range" id="seek-bar" value="0" min="0">
+    <span id="current-time">00:00</span> / <span id="duration">00:00</span>
+  </div>
+  <div class="controls">
+    <button id="prev"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white">
+      <g transform="rotate(180, 12, 12)">
+        <path d="M7 6v12l8.5-6L7 6zM16 6v12h2V6h-2z"/>
+      </g></svg>
+    </button>
+    <button id="play-pause"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    </button>
+    <button id="next">  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white">
+      <path d="M7 6v12l8.5-6L7 6zM16 6v12h2V6h-2z"/>
+    </svg></button>
+  </div>
 </div>
 
 
@@ -45,10 +66,7 @@
     }
 }
 
-const source = document.getElementById('player');
-const divs = document.querySelectorAll('.menuitem');
-const audioPlayer = document.getElementById('audio_p');
+  let audio = new Audio('test.m4a');
+  let currentTrackIndex = 0;
 
-///
-
-const tracks = [
+  const tracks = [

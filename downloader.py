@@ -15,7 +15,7 @@ import os
 urls = []
 
 
-playlist_url = "https://youtube.com/playlist?list=PLttkmJc3m9Mvd8HjlcMplqzs1j9Fyo88I&si=s64quuoqGPluzkk-"
+playlist_url = "https://youtube.com/playlist?list=PLttkmJc3m9Muf1yJ_1nGqCxBrhEJZPvFh&si=pk4kw5G099uPSCOg"
 
 # Initialize the Playlist object
 playlist = Playlist(playlist_url)
@@ -45,7 +45,7 @@ files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directo
 
 audio_list = ''
 for file in files:
-    audio_list= audio_list + '{ src:\'' + file + '\', title:\'' + os.path.splitext(file)[0] + '\', artist:\'Unkown\'}, '
+    audio_list= audio_list + '{ src:"' + file + '", title:"' + os.path.splitext(file)[0] + '", artist:"Unkown"}, '
 
 files = [os.path.splitext(file)[0] for file in files]
 

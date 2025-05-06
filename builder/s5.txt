@@ -1,55 +1,106 @@
- ]
+]
 
 
-// Loop through each div and add a click event listener
-divs.forEach(div => {
+  const divs = document.querySelectorAll('.menuitem');
+  divs.forEach(div => {
   div.addEventListener('click', function() {
-    let newSrc = this.id;
-    newSrc = newSrc.slice(1);
-    const index = tracks.findIndex(track => track.title === newSrc);
-    skipTrack(0, currentTrackIndex=index)
-  });
-});
-
-
-let currentTrackIndex = 0;
-
-function updateMediaSession() {
-  if ('mediaSession' in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: tracks[currentTrackIndex].title,
-      artist: tracks[currentTrackIndex].artist,
-      // artwork: [
-      //   { src: 'artwork.jpg', sizes: '96x96', type: 'image/jpeg' },
-      //   { src: 'artwork.jpg', sizes: '128x128', type: 'image/jpeg' },
-      //   { src: 'artwork.jpg', sizes: '192x192', type: 'image/jpeg' }
-      // ]
+        let newSrc = this.id;
+        newSrc = newSrc.slice(1);
+        const index = tracks.findIndex(track => track.title === newSrc);
+        skipTrack(0, currentTrackIndex=index)
     });
+    });
+    
+    function skipTrack(direction, currentTrack) {
+        console.log(typeof currentTrackIndex)
+        if (typeof currentTrack === "undefined") {
+            console.log('y')
+            currentTrack = (currentTrackIndex + direction + tracks.length) % tracks.length
+            console.log(currentTrack)
+            currentTrackIndex = currentTrack
+        }
+        audio.src = 'Songs/' + tracks[currentTrack].src;
+        document.querySelector('.track-title').textContent = tracks[currentTrack].title
+        audio.play();
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>';
+        updateMediaSession();
+    }
 
-    navigator.mediaSession.setActionHandler('play', () => audioPlayer.play());
-    navigator.mediaSession.setActionHandler('pause', () => audioPlayer.pause());
-    navigator.mediaSession.setActionHandler('previoustrack', () => skipTrack(-1));
-    navigator.mediaSession.setActionHandler('nexttrack', () => skipTrack(1));
-  }
-}
+    const playPauseBtn = document.getElementById('play-pause');
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+    const seekBar = document.getElementById('seek-bar');
+    const currentTimeDisplay = document.getElementById('current-time');
+    const durationDisplay = document.getElementById('duration');
+    
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>';
+      } else {
+        audio.pause();
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+      }
+    });
+    
+    audio.addEventListener('ended', () => skipTrack(1))
 
-function skipTrack(direction, currentTrack) {
-  console.log(typeof currentTrackIndex)
-  if (typeof currentTrack === "undefined") {
-    console.log('y')
-    currentTrack = (currentTrackIndex + direction + tracks.length) % tracks.length
-    console.log(currentTrack)
-    currentTrackIndex = currentTrack
-  }
-  audioPlayer.src = 'Songs/' + tracks[currentTrack].src;
-  audioPlayer.play();
-  updateMediaSession();
-}
+    audio.addEventListener('loadedmetadata', () => {
+      durationDisplay.textContent = formatTime(audio.duration);
+      seekBar.max = audio.duration;
+    });
+    
+    audio.addEventListener('timeupdate', () => {
+      seekBar.value = audio.currentTime;
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    });
+    
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = seekBar.value;
+    });
+    
+    prevBtn.addEventListener('click', () => skipTrack(-1))
+    nextBtn.addEventListener('click', () => skipTrack(1))
 
-audioPlayer.addEventListener('play', updateMediaSession);
-audioPlayer.addEventListener('pause', updateMediaSession);
-audioPlayer.addEventListener('ended', () => skipTrack(1));
-</script>
+
+    function updateMediaSession() {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+            title: tracks[currentTrackIndex].title,
+            artist: tracks[currentTrackIndex].artist,
+            // artwork: [
+            //   { src: 'artwork.jpg', sizes: '96x96', type: 'image/jpeg' },
+            //   { src: 'artwork.jpg', sizes: '128x128', type: 'image/jpeg' },
+            //   { src: 'artwork.jpg', sizes: '192x192', type: 'image/jpeg' }
+            // ]
+            });
+
+            navigator.mediaSession.setActionHandler('play', () => {
+                playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>';
+                audio.play()
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+                audio.pause()
+            });
+            navigator.mediaSession.setActionHandler('previoustrack', () => skipTrack(-1));
+            navigator.mediaSession.setActionHandler('nexttrack', () => skipTrack(1));
+        }
+    }
+
+
+
+
+
+
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+    
+    </script>
 </body>
 </html>
 
