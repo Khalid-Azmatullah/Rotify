@@ -134,7 +134,8 @@ function updateMediaSession() {
   }
 }
 
-function skipTrack(direction, currentTrackIndex=(currentTrackIndex + direction + tracks.length) % tracks.length) {
+function skipTrack(direction, currentTrackIndex=0) {
+  currentTrackIndex = (currentTrackIndex + direction + tracks.length) % tracks.length
   audioPlayer.src = 'Songs/' + tracks[currentTrackIndex].src;
   audioPlayer.play();
   updateMediaSession();
