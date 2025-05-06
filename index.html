@@ -81,29 +81,48 @@
   </div>
 
   <div class="main">    
-    <h2>The Walk</h2>
+    <h2 style="padding-bottom: 5px;">The Walk</h2>
     <p>Music has a profound ability to connect people across cultures, transcend barriers, and evoke deep emotions. It serves as a universal language that can heal, inspire, and bring comfort, offering a form of expression that words alone often cannot capture. Given its transformative power, music should be accessible to everyone, regardless of their background or financial situation. When music is made available for free, it levels the playing field, allowing all individuals to explore their creativity, find solace, or experience joy through sound. It nurtures the soul, encourages social connection, and fosters a sense of shared humanity, reminding us that art, in all its forms, should be a right and not a privilege. By ensuring music is free, we embrace its ability to unite, educate, and uplift society as a whole.</p>
   </div>
 
   <div class="right">
-    <h2>What?</h2>
-    <p>A Web Player.</p>
-    <h2>Where?</h2>
-    <p>Anywhere you could dream of.</p>
-    <h2>Price?</h2>
-    <p>Free!</p>
+    <h2 style="padding-bottom: 5px;">What?</h2>
+    <p style="padding-bottom: 10px;">A Web Player.</p>
+    <h2 style="padding-bottom: 5px;">Where?</h2>
+    <p style="padding-bottom: 10px;">Anywhere you could dream of.</p>
+    <h2 style="padding-bottom: 5px;">Price?</h2>
+    <p style="padding-bottom: 10px;">Free!</p>
   </div>
 </div>
 
 
 <div style="background-color:#f1f1f1;text-align:center;padding:10px;margin-top:7px;font-size:12px;"> This web page is a part of a demonstration of independent design.</div>
 
-<div class="player">
-    
-    <audio controls style="width: 100%" id="audio_p">
-        <source id="player" src="test.m4a" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+<div class="audio-player">
+  <!-- <div class="album-art">
+    <img src="album-cover.jpg" alt="Album Art">
+  </div> -->
+  <div class="track-info">
+    <span class="track-title marquee-content">&nbsp;</span>
+  </div>
+  <div class="progress-bar">
+    <input type="range" id="seek-bar" value="0" min="0">
+    <span id="current-time">00:00</span> / <span id="duration">00:00</span>
+  </div>
+  <div class="controls">
+    <button id="prev"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white">
+      <g transform="rotate(180, 12, 12)">
+        <path d="M7 6v12l8.5-6L7 6zM16 6v12h2V6h-2z"/>
+      </g></svg>
+    </button>
+    <button id="play-pause"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    </button>
+    <button id="next">  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white">
+      <path d="M7 6v12l8.5-6L7 6zM16 6v12h2V6h-2z"/>
+    </svg></button>
+  </div>
 </div>
 
 
@@ -124,90 +143,112 @@
     }
 }
 
-const source = document.getElementById('player');
-const divs = document.querySelectorAll('.menuitem');
-const audioPlayer = document.getElementById('audio_p');
+  let audio = new Audio('test.m4a');
+  let currentTrackIndex = 0;
 
-///
-
-const tracks = [{ src:'3 - Why This Kolaveri Di Official Video  Dhanush  Anirudh Ravichander  Shruti Haasan.m4a', title:'3 - Why This Kolaveri Di Official Video  Dhanush  Anirudh Ravichander  Shruti Haasan', artist:'Unkown'}, { src:'Aaj Ki Raat  Stree 2  Tamannaah Bhatia  Sachin-Jigar  Madhubanti  Divya  Amitabh.m4a', title:'Aaj Ki Raat  Stree 2  Tamannaah Bhatia  Sachin-Jigar  Madhubanti  Divya  Amitabh', artist:'Unkown'}, { src:'Afghan Jalebi (Ya Baba) FULL VIDEO Song  Phantom  Saif Ali Khan Katrina Kaif Pritam Asrar T-Series.m4a', title:'Afghan Jalebi (Ya Baba) FULL VIDEO Song  Phantom  Saif Ali Khan Katrina Kaif Pritam Asrar T-Series', artist:'Unkown'}, { src:'Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic.m4a', title:'Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic', artist:'Unkown'}, { src:'Agent Vinod Pyar Ki Pungi Full Video Song (HD)  Saif Ali Khan  Pritam.m4a', title:'Agent Vinod Pyar Ki Pungi Full Video Song (HD)  Saif Ali Khan  Pritam', artist:'Unkown'}, { src:'Akhiyaan Gulaab (Song) Shahid Kapoor, Kriti Sanon  Mitraz  Teri Baaton Mein Aisa Uljha Jiya.m4a', title:'Akhiyaan Gulaab (Song) Shahid Kapoor, Kriti Sanon  Mitraz  Teri Baaton Mein Aisa Uljha Jiya', artist:'Unkown'}, { src:'Ambarsariya Fukrey Song By Sona Mohapatra  Pulkit Samrat, Priya Anand.m4a', title:'Ambarsariya Fukrey Song By Sona Mohapatra  Pulkit Samrat, Priya Anand', artist:'Unkown'}, { src:'Anuv Jain - HUSN (Official Video).m4a', title:'Anuv Jain - HUSN (Official Video)', artist:'Unkown'}, { src:'Anuv Jain - JO TUM MERE HO (Official Video).m4a', title:'Anuv Jain - JO TUM MERE HO (Official Video)', artist:'Unkown'}, { src:'Badshah - Jugnu (Official Video)  Nikhita Gandhi  Akanksha Sharma.m4a', title:'Badshah - Jugnu (Official Video)  Nikhita Gandhi  Akanksha Sharma', artist:'Unkown'}, { src:'Badshah X Arijit Singh - Soulmate (Live Video)  Ek THA RAJA.m4a', title:'Badshah X Arijit Singh - Soulmate (Live Video)  Ek THA RAJA', artist:'Unkown'}, { src:'BB3 Jaana Samjho Na (Full Video) Kartik Aaryan, Triptii Dimri  Aditya R, Tulsi K, Lijo, DJ Chetas.m4a', title:'BB3 Jaana Samjho Na (Full Video) Kartik Aaryan, Triptii Dimri  Aditya R, Tulsi K, Lijo, DJ Chetas', artist:'Unkown'}, { src:'Bom Diggy Diggy  (VIDEO)  Zack Knight  Jasmin Walia  Sonu Ke Titu Ki Sweety.m4a', title:'Bom Diggy Diggy  (VIDEO)  Zack Knight  Jasmin Walia  Sonu Ke Titu Ki Sweety', artist:'Unkown'}, { src:'BROWN MUNDE - AP DHILLON  GURINDER GILL  SHINDA KAHLON (Official Music Video).m4a', title:'BROWN MUNDE - AP DHILLON  GURINDER GILL  SHINDA KAHLON (Official Music Video)', artist:'Unkown'}, { src:'Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill.m4a', title:'Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill', artist:'Unkown'}, { src:'Dil Ke Taj Mahal Meinn  BADASS RAVI KUMAR  Himesh Reshammiya Prabhudeva  In Cinemas 7th February.m4a', title:'Dil Ke Taj Mahal Meinn  BADASS RAVI KUMAR  Himesh Reshammiya Prabhudeva  In Cinemas 7th February', artist:'Unkown'}, { src:'Diljit Dosanjh LOVER (Official Music Video) Intense  Raj Ranjodh  MoonChild Era.m4a', title:'Diljit Dosanjh LOVER (Official Music Video) Intense  Raj Ranjodh  MoonChild Era', artist:'Unkown'}, { src:'Dolby Walya - Full Video  Jaundya Na Balasaheb  Ajay-Atul  Girish Kulkarni & Saie Tamhankar.m4a', title:'Dolby Walya - Full Video  Jaundya Na Balasaheb  Ajay-Atul  Girish Kulkarni & Saie Tamhankar', artist:'Unkown'}, { src:'Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense.m4a', title:'Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense', artist:'Unkown'}, { src:'Govyachya Kinaryav  SUHRUD WARDEKAR  PRAVIN KOLI, KUMAR DIVEKAR OFFICIAL MUSIC VIDEO 2018.m4a', title:'Govyachya Kinaryav  SUHRUD WARDEKAR  PRAVIN KOLI, KUMAR DIVEKAR OFFICIAL MUSIC VIDEO 2018', artist:'Unkown'}, { src:'Gulaabo - Full Video Shaandaar  Alia Bhatt & Shahid Kapoor  Vishal Dadlani  Amit Trivedi.m4a', title:'Gulaabo - Full Video Shaandaar  Alia Bhatt & Shahid Kapoor  Vishal Dadlani  Amit Trivedi', artist:'Unkown'}, { src:'Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies.m4a', title:'Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies', artist:'Unkown'}, { src:'Hawayein – Jab Harry Met Sejal  Anushka Sharma Shah Rukh Khan Pritam  Imtiaz Ali Arijit Singh.m4a', title:'Hawayein – Jab Harry Met Sejal  Anushka Sharma Shah Rukh Khan Pritam  Imtiaz Ali Arijit Singh', artist:'Unkown'}, { src:'Heeriye (Official Video) Jasleen Royal ft Arijit Singh Dulquer Salmaan Aditya Sharma Taani Tanvir.m4a', title:'Heeriye (Official Video) Jasleen Royal ft Arijit Singh Dulquer Salmaan Aditya Sharma Taani Tanvir', artist:'Unkown'}, { src:'Ik Kudi.m4a', title:'Ik Kudi', artist:'Unkown'}, { src:'Illuminati (Music Video)  Sushin Shyam  Dabzee  Vinayak Sasikumar  Think Originals.m4a', title:'Illuminati (Music Video)  Sushin Shyam  Dabzee  Vinayak Sasikumar  Think Originals', artist:'Unkown'}, { src:'JAWAN Chaleya (Hindi)  Shah Rukh Khan  Nayanthara  Atlee  Anirudh  Arijit S, Shilpa R  Kumaar.m4a', title:'JAWAN Chaleya (Hindi)  Shah Rukh Khan  Nayanthara  Atlee  Anirudh  Arijit S, Shilpa R  Kumaar', artist:'Unkown'}, { src:'Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid.m4a', title:'Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid', artist:'Unkown'}, { src:'Kar Gayi Chull - Full Audio Song  Sidharth Malhotra  Alia Bhatt  Badshah  Bollywood Party Songs.m4a', title:'Kar Gayi Chull - Full Audio Song  Sidharth Malhotra  Alia Bhatt  Badshah  Bollywood Party Songs', artist:'Unkown'}, { src:'Makhna - Drive Sushant Singh Rajput, Jacqueline Fernandez Tanishk Bagchi, Asees Kaur.m4a', title:'Makhna - Drive Sushant Singh Rajput, Jacqueline Fernandez Tanishk Bagchi, Asees Kaur', artist:'Unkown'}, { src:'MEHBOOBA   PREET BANDRE  OFFICIAL MUSIC VIDEO 2023.m4a', title:'MEHBOOBA   PREET BANDRE  OFFICIAL MUSIC VIDEO 2023', artist:'Unkown'}, { src:'MILLIONAIRE SONG (Full Video) @YoYoHoneySingh   GLORY  BHUSHAN KUMAR.m4a', title:'MILLIONAIRE SONG (Full Video) @YoYoHoneySingh   GLORY  BHUSHAN KUMAR', artist:'Unkown'}, { src:'Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 .m4a', title:'Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 ', artist:'Unkown'}, { src:'O Meri Laila - Lyrical  Laila Majnu  Atif Aslam & Jyotica Tangri  Avinash Tiwary & Tripti Dimri.m4a', title:'O Meri Laila - Lyrical  Laila Majnu  Atif Aslam & Jyotica Tangri  Avinash Tiwary & Tripti Dimri', artist:'Unkown'}, { src:'Obsessed - Riar Saab, @AbhijaySharma  Official Music Video.m4a', title:'Obsessed - Riar Saab, @AbhijaySharma  Official Music Video', artist:'Unkown'}, { src:'Prabh Singh Ft Jay Trak - 945 (Official Music Video).m4a', title:'Prabh Singh Ft Jay Trak - 945 (Official Music Video)', artist:'Unkown'}, { src:'Psycho Saiyaan  Saaho  Prabhas, Shraddha Kapoor  Tanishk Bagchi, Dhvani Bhanushali, Sachet Tandon.m4a', title:'Psycho Saiyaan  Saaho  Prabhas, Shraddha Kapoor  Tanishk Bagchi, Dhvani Bhanushali, Sachet Tandon', artist:'Unkown'}, { src:'Raabta (Kehte Hain Khuda) Full Song With Lyrics  Agent Vinod  Saif Ali Khan, Kareena Kapoor,Pritam.m4a', title:'Raabta (Kehte Hain Khuda) Full Song With Lyrics  Agent Vinod  Saif Ali Khan, Kareena Kapoor,Pritam', artist:'Unkown'}, { src:'Ranjha – Official Video  Shershaah  Sidharth–Kiara  B Praak  Jasleen Royal  Romy  Anvita Dutt.m4a', title:'Ranjha – Official Video  Shershaah  Sidharth–Kiara  B Praak  Jasleen Royal  Romy  Anvita Dutt', artist:'Unkown'}, { src:'Shubh - Cheques (Official Music Video).m4a', title:'Shubh - Cheques (Official Music Video)', artist:'Unkown'}, { src:'Shubh - One Love (Official Audio).m4a', title:'Shubh - One Love (Official Audio)', artist:'Unkown'}, { src:'SOFTLY (Official Music Video) KARAN AUJLA  IKKY  LATEST PUNJABI SONGS 2023.m4a', title:'SOFTLY (Official Music Video) KARAN AUJLA  IKKY  LATEST PUNJABI SONGS 2023', artist:'Unkown'}, { src:'SUNIYAN SUNIYAN (Official Video) Juss x MixSingh.m4a', title:'SUNIYAN SUNIYAN (Official Video) Juss x MixSingh', artist:'Unkown'}, { src:'Tere Pyaar Mein (Full Video) Tu Jhoothi Main Makkaar Ranbir,Shraddha PritamArijit,Nikhita,Amitabh.m4a', title:'Tere Pyaar Mein (Full Video) Tu Jhoothi Main Makkaar Ranbir,Shraddha PritamArijit,Nikhita,Amitabh', artist:'Unkown'}, { src:'The Humma Song – OK Jaanu  Shraddha Kapoor  Aditya Roy Kapur  @ARRahman, Badshah, Tanishk.m4a', title:'The Humma Song – OK Jaanu  Shraddha Kapoor  Aditya Roy Kapur  @ARRahman, Badshah, Tanishk', artist:'Unkown'}, { src:'Ud-daa Punjab - Full Video  Udta Punjab  Vishal Dadlani & Amit Trivedi  Shahid Kapoor.m4a', title:'Ud-daa Punjab - Full Video  Udta Punjab  Vishal Dadlani & Amit Trivedi  Shahid Kapoor', artist:'Unkown'}, { src:'Udhal Ho Full Video  Malaal  Sanjay Leela Bhansali  Sharmin Segal  Meezaan   Adarsh Shinde.m4a', title:'Udhal Ho Full Video  Malaal  Sanjay Leela Bhansali  Sharmin Segal  Meezaan   Adarsh Shinde', artist:'Unkown'}, { src:'Ve Haaniyaan - Official Video  Ravi Dubey & Sargun Mehta  Danny  Avvy Sra  Dreamiyata Music.m4a', title:'Ve Haaniyaan - Official Video  Ravi Dubey & Sargun Mehta  Danny  Avvy Sra  Dreamiyata Music', artist:'Unkown'}, { src:'Ve Kamleya  Rocky Aur Rani Kii Prem Kahaani  Ranveer  Alia  Pritam  Amitabh  Arijit  Shreya.m4a', title:'Ve Kamleya  Rocky Aur Rani Kii Prem Kahaani  Ranveer  Alia  Pritam  Amitabh  Arijit  Shreya', artist:'Unkown'}, { src:'WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024.m4a', title:'WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024', artist:'Unkown'}, { src:'What Jhumka -Video  Rocky Aur Rani Kii Prem Kahaani  Ranveer, Alia, Arijit, Jonita,Pritam,Amitabh.m4a', title:'What Jhumka -Video  Rocky Aur Rani Kii Prem Kahaani  Ranveer, Alia, Arijit, Jonita,Pritam,Amitabh', artist:'Unkown'}, { src:'भावी आमदार Bhavi Amdar Lyrical Song  Jaggu Ani Juliet  Ajay - Atul  Upendra Limaye, Amey Wagh.m4a', title:'भावी आमदार Bhavi Amdar Lyrical Song  Jaggu Ani Juliet  Ajay - Atul  Upendra Limaye, Amey Wagh', artist:'Unkown'}, { src:'ये गो ये ये मैना - Ye Go Ye Ye Maina  जत्रा  HD SONG  Ajay-Atul  Ankush Chaudhari, Bharat Jadhav.m4a', title:'ये गो ये ये मैना - Ye Go Ye Ye Maina  जत्रा  HD SONG  Ajay-Atul  Ankush Chaudhari, Bharat Jadhav', artist:'Unkown'},  ]
+  const tracks = [{ src:'3 - Why This Kolaveri Di Official Video  Dhanush  Anirudh Ravichander  Shruti Haasan.m4a', title:'3 - Why This Kolaveri Di Official Video  Dhanush  Anirudh Ravichander  Shruti Haasan', artist:'Unkown'}, { src:'Aaj Ki Raat  Stree 2  Tamannaah Bhatia  Sachin-Jigar  Madhubanti  Divya  Amitabh.m4a', title:'Aaj Ki Raat  Stree 2  Tamannaah Bhatia  Sachin-Jigar  Madhubanti  Divya  Amitabh', artist:'Unkown'}, { src:'Afghan Jalebi (Ya Baba) FULL VIDEO Song  Phantom  Saif Ali Khan Katrina Kaif Pritam Asrar T-Series.m4a', title:'Afghan Jalebi (Ya Baba) FULL VIDEO Song  Phantom  Saif Ali Khan Katrina Kaif Pritam Asrar T-Series', artist:'Unkown'}, { src:'Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic.m4a', title:'Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic', artist:'Unkown'}, { src:'Agent Vinod Pyar Ki Pungi Full Video Song (HD)  Saif Ali Khan  Pritam.m4a', title:'Agent Vinod Pyar Ki Pungi Full Video Song (HD)  Saif Ali Khan  Pritam', artist:'Unkown'}, { src:'Akhiyaan Gulaab (Song) Shahid Kapoor, Kriti Sanon  Mitraz  Teri Baaton Mein Aisa Uljha Jiya.m4a', title:'Akhiyaan Gulaab (Song) Shahid Kapoor, Kriti Sanon  Mitraz  Teri Baaton Mein Aisa Uljha Jiya', artist:'Unkown'}, { src:'Ambarsariya Fukrey Song By Sona Mohapatra  Pulkit Samrat, Priya Anand.m4a', title:'Ambarsariya Fukrey Song By Sona Mohapatra  Pulkit Samrat, Priya Anand', artist:'Unkown'}, { src:'Anuv Jain - HUSN (Official Video).m4a', title:'Anuv Jain - HUSN (Official Video)', artist:'Unkown'}, { src:'Anuv Jain - JO TUM MERE HO (Official Video).m4a', title:'Anuv Jain - JO TUM MERE HO (Official Video)', artist:'Unkown'}, { src:'Badshah - Jugnu (Official Video)  Nikhita Gandhi  Akanksha Sharma.m4a', title:'Badshah - Jugnu (Official Video)  Nikhita Gandhi  Akanksha Sharma', artist:'Unkown'}, { src:'Badshah X Arijit Singh - Soulmate (Live Video)  Ek THA RAJA.m4a', title:'Badshah X Arijit Singh - Soulmate (Live Video)  Ek THA RAJA', artist:'Unkown'}, { src:'BB3 Jaana Samjho Na (Full Video) Kartik Aaryan, Triptii Dimri  Aditya R, Tulsi K, Lijo, DJ Chetas.m4a', title:'BB3 Jaana Samjho Na (Full Video) Kartik Aaryan, Triptii Dimri  Aditya R, Tulsi K, Lijo, DJ Chetas', artist:'Unkown'}, { src:'Bom Diggy Diggy  (VIDEO)  Zack Knight  Jasmin Walia  Sonu Ke Titu Ki Sweety.m4a', title:'Bom Diggy Diggy  (VIDEO)  Zack Knight  Jasmin Walia  Sonu Ke Titu Ki Sweety', artist:'Unkown'}, { src:'BROWN MUNDE - AP DHILLON  GURINDER GILL  SHINDA KAHLON (Official Music Video).m4a', title:'BROWN MUNDE - AP DHILLON  GURINDER GILL  SHINDA KAHLON (Official Music Video)', artist:'Unkown'}, { src:'Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill.m4a', title:'Coke Studio  Season 14  Pasoori  Ali Sethi x Shae Gill', artist:'Unkown'}, { src:'Dil Ke Taj Mahal Meinn  BADASS RAVI KUMAR  Himesh Reshammiya Prabhudeva  In Cinemas 7th February.m4a', title:'Dil Ke Taj Mahal Meinn  BADASS RAVI KUMAR  Himesh Reshammiya Prabhudeva  In Cinemas 7th February', artist:'Unkown'}, { src:'Diljit Dosanjh LOVER (Official Music Video) Intense  Raj Ranjodh  MoonChild Era.m4a', title:'Diljit Dosanjh LOVER (Official Music Video) Intense  Raj Ranjodh  MoonChild Era', artist:'Unkown'}, { src:'Dolby Walya - Full Video  Jaundya Na Balasaheb  Ajay-Atul  Girish Kulkarni & Saie Tamhankar.m4a', title:'Dolby Walya - Full Video  Jaundya Na Balasaheb  Ajay-Atul  Girish Kulkarni & Saie Tamhankar', artist:'Unkown'}, { src:'Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense.m4a', title:'Excuses (Official Video)  AP Dhillon  Gurinder Gill  Intense', artist:'Unkown'}, { src:'Govyachya Kinaryav  SUHRUD WARDEKAR  PRAVIN KOLI, KUMAR DIVEKAR OFFICIAL MUSIC VIDEO 2018.m4a', title:'Govyachya Kinaryav  SUHRUD WARDEKAR  PRAVIN KOLI, KUMAR DIVEKAR OFFICIAL MUSIC VIDEO 2018', artist:'Unkown'}, { src:'Gulaabo - Full Video Shaandaar  Alia Bhatt & Shahid Kapoor  Vishal Dadlani  Amit Trivedi.m4a', title:'Gulaabo - Full Video Shaandaar  Alia Bhatt & Shahid Kapoor  Vishal Dadlani  Amit Trivedi', artist:'Unkown'}, { src:'Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies.m4a', title:'Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari  Jaani  BPraak  Arvindr Khaira  Desi Melodies', artist:'Unkown'}, { src:'Hawayein – Jab Harry Met Sejal  Anushka Sharma Shah Rukh Khan Pritam  Imtiaz Ali Arijit Singh.m4a', title:'Hawayein – Jab Harry Met Sejal  Anushka Sharma Shah Rukh Khan Pritam  Imtiaz Ali Arijit Singh', artist:'Unkown'}, { src:'Heeriye (Official Video) Jasleen Royal ft Arijit Singh Dulquer Salmaan Aditya Sharma Taani Tanvir.m4a', title:'Heeriye (Official Video) Jasleen Royal ft Arijit Singh Dulquer Salmaan Aditya Sharma Taani Tanvir', artist:'Unkown'}, { src:'Ik Kudi.m4a', title:'Ik Kudi', artist:'Unkown'}, { src:'Illuminati (Music Video)  Sushin Shyam  Dabzee  Vinayak Sasikumar  Think Originals.m4a', title:'Illuminati (Music Video)  Sushin Shyam  Dabzee  Vinayak Sasikumar  Think Originals', artist:'Unkown'}, { src:'JAWAN Chaleya (Hindi)  Shah Rukh Khan  Nayanthara  Atlee  Anirudh  Arijit S, Shilpa R  Kumaar.m4a', title:'JAWAN Chaleya (Hindi)  Shah Rukh Khan  Nayanthara  Atlee  Anirudh  Arijit S, Shilpa R  Kumaar', artist:'Unkown'}, { src:'Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid.m4a', title:'Jhol  Coke Studio Pakistan  Season 15  Maanu x Annural Khalid', artist:'Unkown'}, { src:'Kar Gayi Chull - Full Audio Song  Sidharth Malhotra  Alia Bhatt  Badshah  Bollywood Party Songs.m4a', title:'Kar Gayi Chull - Full Audio Song  Sidharth Malhotra  Alia Bhatt  Badshah  Bollywood Party Songs', artist:'Unkown'}, { src:'Makhna - Drive Sushant Singh Rajput, Jacqueline Fernandez Tanishk Bagchi, Asees Kaur.m4a', title:'Makhna - Drive Sushant Singh Rajput, Jacqueline Fernandez Tanishk Bagchi, Asees Kaur', artist:'Unkown'}, { src:'MEHBOOBA   PREET BANDRE  OFFICIAL MUSIC VIDEO 2023.m4a', title:'MEHBOOBA   PREET BANDRE  OFFICIAL MUSIC VIDEO 2023', artist:'Unkown'}, { src:'MILLIONAIRE SONG (Full Video) @YoYoHoneySingh   GLORY  BHUSHAN KUMAR.m4a', title:'MILLIONAIRE SONG (Full Video) @YoYoHoneySingh   GLORY  BHUSHAN KUMAR', artist:'Unkown'}, { src:'Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 .m4a', title:'Murder (Official Video) Real Boss  New Punjabi Songs 2022  Latest Punjabi Songs 2022 ', artist:'Unkown'}, { src:'O Meri Laila - Lyrical  Laila Majnu  Atif Aslam & Jyotica Tangri  Avinash Tiwary & Tripti Dimri.m4a', title:'O Meri Laila - Lyrical  Laila Majnu  Atif Aslam & Jyotica Tangri  Avinash Tiwary & Tripti Dimri', artist:'Unkown'}, { src:'Obsessed - Riar Saab, @AbhijaySharma  Official Music Video.m4a', title:'Obsessed - Riar Saab, @AbhijaySharma  Official Music Video', artist:'Unkown'}, { src:'Prabh Singh Ft Jay Trak - 945 (Official Music Video).m4a', title:'Prabh Singh Ft Jay Trak - 945 (Official Music Video)', artist:'Unkown'}, { src:'Psycho Saiyaan  Saaho  Prabhas, Shraddha Kapoor  Tanishk Bagchi, Dhvani Bhanushali, Sachet Tandon.m4a', title:'Psycho Saiyaan  Saaho  Prabhas, Shraddha Kapoor  Tanishk Bagchi, Dhvani Bhanushali, Sachet Tandon', artist:'Unkown'}, { src:'Raabta (Kehte Hain Khuda) Full Song With Lyrics  Agent Vinod  Saif Ali Khan, Kareena Kapoor,Pritam.m4a', title:'Raabta (Kehte Hain Khuda) Full Song With Lyrics  Agent Vinod  Saif Ali Khan, Kareena Kapoor,Pritam', artist:'Unkown'}, { src:'Ranjha – Official Video  Shershaah  Sidharth–Kiara  B Praak  Jasleen Royal  Romy  Anvita Dutt.m4a', title:'Ranjha – Official Video  Shershaah  Sidharth–Kiara  B Praak  Jasleen Royal  Romy  Anvita Dutt', artist:'Unkown'}, { src:'Shubh - Cheques (Official Music Video).m4a', title:'Shubh - Cheques (Official Music Video)', artist:'Unkown'}, { src:'Shubh - One Love (Official Audio).m4a', title:'Shubh - One Love (Official Audio)', artist:'Unkown'}, { src:'SOFTLY (Official Music Video) KARAN AUJLA  IKKY  LATEST PUNJABI SONGS 2023.m4a', title:'SOFTLY (Official Music Video) KARAN AUJLA  IKKY  LATEST PUNJABI SONGS 2023', artist:'Unkown'}, { src:'SUNIYAN SUNIYAN (Official Video) Juss x MixSingh.m4a', title:'SUNIYAN SUNIYAN (Official Video) Juss x MixSingh', artist:'Unkown'}, { src:'Tere Pyaar Mein (Full Video) Tu Jhoothi Main Makkaar Ranbir,Shraddha PritamArijit,Nikhita,Amitabh.m4a', title:'Tere Pyaar Mein (Full Video) Tu Jhoothi Main Makkaar Ranbir,Shraddha PritamArijit,Nikhita,Amitabh', artist:'Unkown'}, { src:'The Humma Song – OK Jaanu  Shraddha Kapoor  Aditya Roy Kapur  @ARRahman, Badshah, Tanishk.m4a', title:'The Humma Song – OK Jaanu  Shraddha Kapoor  Aditya Roy Kapur  @ARRahman, Badshah, Tanishk', artist:'Unkown'}, { src:'Ud-daa Punjab - Full Video  Udta Punjab  Vishal Dadlani & Amit Trivedi  Shahid Kapoor.m4a', title:'Ud-daa Punjab - Full Video  Udta Punjab  Vishal Dadlani & Amit Trivedi  Shahid Kapoor', artist:'Unkown'}, { src:'Udhal Ho Full Video  Malaal  Sanjay Leela Bhansali  Sharmin Segal  Meezaan   Adarsh Shinde.m4a', title:'Udhal Ho Full Video  Malaal  Sanjay Leela Bhansali  Sharmin Segal  Meezaan   Adarsh Shinde', artist:'Unkown'}, { src:'Ve Haaniyaan - Official Video  Ravi Dubey & Sargun Mehta  Danny  Avvy Sra  Dreamiyata Music.m4a', title:'Ve Haaniyaan - Official Video  Ravi Dubey & Sargun Mehta  Danny  Avvy Sra  Dreamiyata Music', artist:'Unkown'}, { src:'Ve Kamleya  Rocky Aur Rani Kii Prem Kahaani  Ranveer  Alia  Pritam  Amitabh  Arijit  Shreya.m4a', title:'Ve Kamleya  Rocky Aur Rani Kii Prem Kahaani  Ranveer  Alia  Pritam  Amitabh  Arijit  Shreya', artist:'Unkown'}, { src:'WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024.m4a', title:'WAVY (OFFICIAL VIDEO) KARAN AUJLA  LATEST PUNJABI SONGS 2024', artist:'Unkown'}, { src:'What Jhumka -Video  Rocky Aur Rani Kii Prem Kahaani  Ranveer, Alia, Arijit, Jonita,Pritam,Amitabh.m4a', title:'What Jhumka -Video  Rocky Aur Rani Kii Prem Kahaani  Ranveer, Alia, Arijit, Jonita,Pritam,Amitabh', artist:'Unkown'}, { src:'भावी आमदार Bhavi Amdar Lyrical Song  Jaggu Ani Juliet  Ajay - Atul  Upendra Limaye, Amey Wagh.m4a', title:'भावी आमदार Bhavi Amdar Lyrical Song  Jaggu Ani Juliet  Ajay - Atul  Upendra Limaye, Amey Wagh', artist:'Unkown'}, { src:'ये गो ये ये मैना - Ye Go Ye Ye Maina  जत्रा  HD SONG  Ajay-Atul  Ankush Chaudhari, Bharat Jadhav.m4a', title:'ये गो ये ये मैना - Ye Go Ye Ye Maina  जत्रा  HD SONG  Ajay-Atul  Ankush Chaudhari, Bharat Jadhav', artist:'Unkown'},  ]
 
 
-// Loop through each div and add a click event listener
-divs.forEach(div => {
+  const divs = document.querySelectorAll('.menuitem');
+  divs.forEach(div => {
   div.addEventListener('click', function() {
-    let newSrc = this.id;
-    newSrc = newSrc.slice(1);
-    const index = tracks.findIndex(track => track.title === newSrc);
-    skipTrack(0, currentTrackIndex=index)
-  });
-});
-
-
-let currentTrackIndex = 0;
-
-function updateMediaSession() {
-  if ('mediaSession' in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: tracks[currentTrackIndex].title,
-      artist: tracks[currentTrackIndex].artist,
-      // artwork: [
-      //   { src: 'artwork.jpg', sizes: '96x96', type: 'image/jpeg' },
-      //   { src: 'artwork.jpg', sizes: '128x128', type: 'image/jpeg' },
-      //   { src: 'artwork.jpg', sizes: '192x192', type: 'image/jpeg' }
-      // ]
+        let newSrc = this.id;
+        newSrc = newSrc.slice(1);
+        const index = tracks.findIndex(track => track.title === newSrc);
+        skipTrack(0, currentTrackIndex=index)
     });
-
-    navigator.mediaSession.setActionHandler('play', () => audioPlayer.play());
-    navigator.mediaSession.setActionHandler('pause', () => audioPlayer.pause());
-    navigator.mediaSession.setActionHandler('previoustrack', () => skipTrack(-1));
-    navigator.mediaSession.setActionHandler('nexttrack', () => skipTrack(1));
-  }
-}
-
-function skipTrack(direction, currentTrack) {
-  console.log(typeof currentTrackIndex)
-  if (typeof currentTrack === "undefined") {
-    console.log('y')
-    currentTrack = (currentTrackIndex + direction + tracks.length) % tracks.length
-    console.log(currentTrack)
-    currentTrackIndex = currentTrack
-  }
-  audioPlayer.src = 'Songs/' + tracks[currentTrack].src;
-  audioPlayer.play();
-  updateMediaSession();
-}
-
-audioPlayer.addEventListener('play', updateMediaSession);
-audioPlayer.addEventListener('pause', updateMediaSession);
-audioPlayer.addEventListener('ended', () => skipTrack(1));
-
-
-
-
-
-
-
-
-
-const boxes = document.querySelectorAll('.menuitem');
-  let maxHeight = 0;
-
-  // Find the maximum height
-  boxes.forEach(box => {
-    const height = box.offsetHeight;
-    console.log(height)
-    if (height > maxHeight) {
-      maxHeight = height;
+    });
+    
+    function skipTrack(direction, currentTrack) {
+        console.log(typeof currentTrackIndex)
+        if (typeof currentTrack === "undefined") {
+            console.log('y')
+            currentTrack = (currentTrackIndex + direction + tracks.length) % tracks.length
+            console.log(currentTrack)
+            currentTrackIndex = currentTrack
+        }
+        audio.src = 'Songs/' + tracks[currentTrack].src;
+        document.querySelector('.track-title').textContent = tracks[currentTrack].title
+        audio.play();
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>';
+        updateMediaSession();
     }
-  });
 
-  // Apply the maximum height to all boxes
-  console.log(maxHeight);
-  boxes.forEach(box => {
-    box.style.height = maxHeight + 'px';
-  });
-</script>
+    const playPauseBtn = document.getElementById('play-pause');
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+    const seekBar = document.getElementById('seek-bar');
+    const currentTimeDisplay = document.getElementById('current-time');
+    const durationDisplay = document.getElementById('duration');
+    
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>';
+      } else {
+        audio.pause();
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+      }
+    });
+    
+    audio.addEventListener('ended', () => skipTrack(1))
+
+    audio.addEventListener('loadedmetadata', () => {
+      durationDisplay.textContent = formatTime(audio.duration);
+      seekBar.max = audio.duration;
+    });
+    
+    audio.addEventListener('timeupdate', () => {
+      seekBar.value = audio.currentTime;
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    });
+    
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = seekBar.value;
+    });
+    
+    prevBtn.addEventListener('click', () => skipTrack(-1))
+    nextBtn.addEventListener('click', () => skipTrack(1))
+
+
+    function updateMediaSession() {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+            title: tracks[currentTrackIndex].title,
+            artist: tracks[currentTrackIndex].artist,
+            // artwork: [
+            //   { src: 'artwork.jpg', sizes: '96x96', type: 'image/jpeg' },
+            //   { src: 'artwork.jpg', sizes: '128x128', type: 'image/jpeg' },
+            //   { src: 'artwork.jpg', sizes: '192x192', type: 'image/jpeg' }
+            // ]
+            });
+
+            navigator.mediaSession.setActionHandler('play', () => {
+                playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>';
+                audio.play()
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+                audio.pause()
+            });
+            navigator.mediaSession.setActionHandler('previoustrack', () => skipTrack(-1));
+            navigator.mediaSession.setActionHandler('nexttrack', () => skipTrack(1));
+        }
+    }
+
+
+
+
+
+
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+    
+    </script>
 </body>
 </html>
 
