@@ -181,6 +181,32 @@ function skipTrack(direction, currentTrack) {
 audioPlayer.addEventListener('play', updateMediaSession);
 audioPlayer.addEventListener('pause', updateMediaSession);
 audioPlayer.addEventListener('ended', () => skipTrack(1));
+
+
+
+
+
+
+
+
+
+const boxes = document.querySelectorAll('.menuitem');
+  let maxHeight = 0;
+
+  // Find the maximum height
+  boxes.forEach(box => {
+    const height = box.offsetHeight;
+    console.log(height)
+    if (height > maxHeight) {
+      maxHeight = height;
+    }
+  });
+
+  // Apply the maximum height to all boxes
+  console.log(maxHeight);
+  boxes.forEach(box => {
+    box.style.height = maxHeight + 'px';
+  });
 </script>
 </body>
 </html>

@@ -7,9 +7,12 @@
     width: 20%;
   }
   .menuitem {
+    display: flex;
+    align-items: center; 
     padding: 8px;
     margin-top: 7px;
     border-bottom: 1px solid #f1f1f1;
+    vertical-align: middle;
   }
   .menutext {
     padding: 8px;
@@ -51,15 +54,11 @@
     width: 100%;
     bottom: 0;
     left: 0;
-    background-color: #000;
+    background-color: #F1F3F4;
   }
   audio::-webkit-media-controls-play-button {
-    transform: scale(1.5, 1.5);
-    padding: 0px;
-    margin-left: 2px;
-    margin-right: 10px;
-    background-color: whitesmoke;
-    border-radius: 100%;
+    transform: scale(2.5, 2.5);
+    padding-right: 50px;
   }
 
 
@@ -102,59 +101,3 @@
   .active {
     background-color: #04AA6D;
   }
-
-
-
-  
-
-
-  audio::-webkit-media-controls-panel {
-    background-color: #000;
-    border: none;
-  }
-  
-  /* audio::-webkit-media-controls-mute-button { */
-    /* Styles for the mute/unmute button */
-  /* } */
-  
-  audio::-webkit-media-controls-volume-slider {
-    color: whitesmoke;
-  }
-  
-  /* audio::-webkit-media-controls-timeline { */
-    /* Styles for the progress bar */
-  /* } */
-  
-  audio::-webkit-media-controls-current-time-display {
-    color: whitesmoke;
-    text-shadow: none;
-  }
-  
-  audio::-webkit-media-controls-time-remaining-display {
-    color: whitesmoke;
-    text-shadow: none;
-  }
-  
-  /* audio::-webkit-media-controls-seek-back-button { */
-    /* Styles for the seek back button */
-  /* } */
-  
-  /* audio::-webkit-media-controls-seek-forward-button { */
-    /* Styles for the seek forward button */
-  /* } */
-  
-  /* audio::-webkit-media-controls-fullscreen-button { */
-    /* Styles for the fullscreen button */
-  /* } */
-  
-  /* audio::-webkit-media-controls-rewind-button { */
-    /* Styles for the rewind button */
-  /* } */
-  
-  /* audio::-webkit-media-controls-return-to-realtime-button { */
-    /* Styles for the return to real-time button */
-  /* } */
-  
-  /* audio::-webkit-media-controls-toggle-closed-captions-button { */
-    /* Styles for the closed captions toggle button */
-  /* } */
