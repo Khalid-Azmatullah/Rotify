@@ -107,12 +107,8 @@ divs.forEach(div => {
   div.addEventListener('click', function() {
     let newSrc = this.id;
     newSrc = newSrc.slice(1);
-    source.src = 'Songs/' + newSrc + '.m4a';
-    console.log('Songs/' + newSrc + '.m4a');
-    audioPlayer.load()
-    audioPlayer.play().catch(error => {
-       console.error('Error playing video:', error);
-    });
+    const index = tracks.findIndex(track => track.title === newSrc);
+    skipTrack(0, currentTrackIndex=index)
   });
 });
 
@@ -138,8 +134,7 @@ function updateMediaSession() {
   }
 }
 
-function skipTrack(direction) {
-  currentTrackIndex = (currentTrackIndex + direction + tracks.length) % tracks.length;
+function skipTrack(direction, currentTrackIndex=(currentTrackIndex + direction + tracks.length) % tracks.length) {
   audioPlayer.src = 'Songs/' + tracks[currentTrackIndex].src;
   audioPlayer.play();
   updateMediaSession();
