@@ -140,7 +140,7 @@ function updateMediaSession() {
 
 function skipTrack(direction) {
   currentTrackIndex = (currentTrackIndex + direction + tracks.length) % tracks.length;
-  audioPlayer.src = tracks[currentTrackIndex].src;
+  audioPlayer.src = 'Songs/' + tracks[currentTrackIndex].src;
   audioPlayer.play();
   updateMediaSession();
 }
