@@ -23,5 +23,5 @@
   <div class="menu">
     <div class="menutext"><h4>Search available songs:</h4></div>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder= "Search  "  title="Type in a name">
-    <div id="sg_list"> 
+    <div id="sg_list">
     

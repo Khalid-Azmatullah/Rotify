@@ -52,6 +52,11 @@
     audio.addEventListener('timeupdate', () => {
       seekBar.value = audio.currentTime;
       currentTimeDisplay.textContent = formatTime(audio.currentTime);
+      navigator.mediaSession.setPositionState({
+        duration: audio.duration,
+        playbackRate: audio.playbackRate,
+        position: audio.currentTime
+      });
     });
     
     seekBar.addEventListener('input', () => {
