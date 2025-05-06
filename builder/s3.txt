@@ -47,8 +47,8 @@
 
 const source = document.getElementById('player');
 const divs = document.querySelectorAll('.menuitem');
-const audio = document.getElementById('audio_p');
+const audioPlayer = document.getElementById('audio_p');
 
 ///
 
-const audioList = [
+const tracks = [
