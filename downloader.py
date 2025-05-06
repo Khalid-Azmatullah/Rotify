@@ -61,7 +61,7 @@ for tst in builder_list:
 
 menu = ''
 for song in files:
-    menu = menu + '<div class="menuitem" id="#' + song + '">' + song + '</div> \n'
+    menu = menu + '<div class="menuitem" id="' + song + '">' + song + '</div> \n'
 
 # print(build[0])
 full_build = build[0] + menu + build[1] + audio_list + build[2]

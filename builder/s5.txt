@@ -5,7 +5,6 @@
   divs.forEach(div => {
   div.addEventListener('click', function() {
         let newSrc = this.id;
-        newSrc = newSrc.slice(1);
         const index = tracks.findIndex(track => track.title === newSrc);
         skipTrack(0, currentTrackIndex=index)
     });
