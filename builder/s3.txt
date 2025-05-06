@@ -1,4 +1,4 @@
-    </div>
+</div>
 
   </div>
 
@@ -30,8 +30,8 @@
   </div>
   <div class="progress-bar">
     <input type="range" id="seek-bar" value="0" min="0">
-    <span id="current-time">00:00</span> / <span id="duration">00:00</span>
   </div>
+  <div style="padding-bottom: 10px;"><span id="current-time">00:00</span> / <span id="duration">00:00</span></div>
   <div class="controls">
     <button id="prev"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white">
       <g transform="rotate(180, 12, 12)">
