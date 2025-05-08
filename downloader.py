@@ -2,6 +2,59 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 from pytubefix import Playlist
 import os
+import requests
+from PIL import Image
+from io import BytesIO
+import re
+
+
+def sanitize_filename(filename):
+    # Remove characters that are not allowed in Windows filenames
+    return re.sub(r'[<>:"/\\|?*]', '_', filename)   
+
+def download_and_resize_thumbnail(video_url, sizes):
+    # Fetch the YouTube video
+    yt = YouTube(video_url)
+    thumbnail_url = yt.thumbnail_url
+    title= yt.title
+
+    # Download the thumbnail image
+    response = requests.get(thumbnail_url)
+    if response.status_code != 200:
+        print("Failed to retrieve the thumbnail.")
+        return
+
+    # Open the image using Pillow
+    img = Image.open(BytesIO(response.content))
+
+    # Prepare the artwork list
+    artwork = []
+
+    # Resize the image to each specified size and save
+    for size in sizes:
+        resized_img = img.copy()
+        resized_img.thumbnail((size, size))
+        sanitized_title = sanitize_filename(yt.title)
+        filename = f"Cover/{sanitized_title}_{size}x{size}.jpg"
+        resized_img.save(filename, 'JPEG')
+        artwork.append({
+            'src': filename,
+            'sizes': f'{size}x{size}',
+            'type': 'image/jpeg'
+        })
+        print(f"Saved {filename}")
+
+    return artwork
+
+
+
+
+
+
+
+
+
+
 
 urls = ["https://youtu.be/8of5w7RgcTc?si=pZjOHZ_d_S25mQEz", 
         "https://youtu.be/Y2lWEVyO-qE?si=HAJoclIRpBd2ERD2", 
@@ -37,6 +90,11 @@ for url in urls:
 
     ys = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
     ys.download(output_path="Songs")
+    sizes = [96, 128, 192]
+    artwork = download_and_resize_thumbnail(url, sizes)
+    print(artwork)
+
+
 
 directory = 'Songs'
 
@@ -45,7 +103,7 @@ files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directo
 
 audio_list = ''
 for file in files:
-    audio_list= audio_list + '{ src:"' + file + '", title:"' + os.path.splitext(file)[0] + '", artist:"Unkown"}, '
+    audio_list= audio_list + '\n{ src:"' + file + '",\n title:"' + os.path.splitext(file)[0] + '",\n artist:"Unkown",\n artwork: ["Cover/' + sanitize_filename(os.path.splitext(file)[0]) + '_96x96.jpg",\n "Cover/' + sanitize_filename(os.path.splitext(file)[0]) + '_128x128.jpg",\n "Cover/' + sanitize_filename(os.path.splitext(file)[0]) + '_192x192.jpg"]\n}, '
 
 files = [os.path.splitext(file)[0] for file in files]
 

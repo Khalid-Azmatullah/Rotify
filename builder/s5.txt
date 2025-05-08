@@ -72,11 +72,11 @@
             navigator.mediaSession.metadata = new MediaMetadata({
             title: tracks[currentTrackIndex].title,
             artist: tracks[currentTrackIndex].artist,
-            // artwork: [
-            //   { src: 'artwork.jpg', sizes: '96x96', type: 'image/jpeg' },
-            //   { src: 'artwork.jpg', sizes: '128x128', type: 'image/jpeg' },
-            //   { src: 'artwork.jpg', sizes: '192x192', type: 'image/jpeg' }
-            // ]
+            artwork: [
+               { src: 'artwork.jpg', sizes: '96x96', type: 'image/jpeg' },
+               { src: 'artwork.jpg', sizes: '128x128', type: 'image/jpeg' },
+               { src: 'artwork.jpg', sizes: '192x192', type: 'image/jpeg' }
+            ]
             });
 
             navigator.mediaSession.setActionHandler('play', () => {
