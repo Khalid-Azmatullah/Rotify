@@ -51,9 +51,9 @@
                     <div class="card">
                         <!-- <img src="Cover/Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic_192x192.jpg" alt="Album 1" class="card-img"> -->
                         <div class="card-body">
-                            <h3 class="card-title">Echoes in Time</h3>
+                            <h3 class="card-title">Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic</h3>
                             <p class="card-subtitle">Synthwave Collective</p>
-                            <a class="card-play-btn song_play" aria-label="Play Echoes in Time"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                     <div class="card">
@@ -219,6 +219,9 @@
                 </div>
                 <div class="player-time-stamps">
                     <span class="player-current-time">0:00</span>
+                    <div class="player-progress-container-full">
+                        <div class="player-progress-fill-full" style="width: 30%;"></div> <!-- JS updates this -->
+                    </div>
                     <span class="player-total-time">3:45</span>
                 </div>
             </div>
@@ -249,77 +252,7 @@
     </div>
 
 
-    <script>
-        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-        const mainNav = document.querySelector('.main-nav');
-
-        if (mobileNavToggle && mainNav) {
-            mobileNavToggle.addEventListener('click', () => {
-                const isExpanded = mainNav.classList.toggle('active');
-                mobileNavToggle.setAttribute('aria-expanded', isExpanded);
-                mobileNavToggle.innerHTML = isExpanded ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-            });
-        }
-    
-        const dynamicPlayer = document.getElementById('dynamicPlayer');
-        const playPauseBtn = dynamicPlayer.querySelector('.main-play-pause');
-        const expandCollapseBtn = dynamicPlayer.querySelector('.expand-collapse-button');
-        const bodyElement = document.body;
-    
-        // --- Play/Pause Logic (Example) ---
-        let isPlaying = false; // This would be tied to actual audio state
-        const playIcon = '<i class="fas fa-play"></i>';
-        const pauseIcon = '<i class="fas fa-pause"></i>';
-    
-        if (playPauseBtn) {
-            playPauseBtn.addEventListener('click', () => {
-                isPlaying = !isPlaying;
-                playPauseBtn.innerHTML = isPlaying ? pauseIcon : playIcon;
-                playPauseBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
-                // In a real app:
-                // const audioEl = document.getElementById('audioPlayerElement');
-                // if (isPlaying) audioEl.play(); else audioEl.pause();
-            });
-        }
-    
-        // --- Expand/Collapse Logic ---
-        if (dynamicPlayer && expandCollapseBtn) {
-            expandCollapseBtn.addEventListener('click', () => {
-                dynamicPlayer.classList.toggle('expanded');
-                const isExpanded = dynamicPlayer.classList.contains('expanded');
-                expandCollapseBtn.setAttribute('aria-label', isExpanded ? 'Collapse Player' : 'Expand Player');
-                expandCollapseBtn.innerHTML = isExpanded ? '<i class="fas fa-chevron-down"></i>' : '<i class="fas fa-chevron-up"></i>';
-    
-                // Adjust body padding when player expands/collapses
-                // This assumes the expanded player might be taller or positioned differently
-                if (isExpanded) {
-                    // If the expanded player is not fixed to bottom but overlays or pushes content
-                    // bodyElement.style.paddingBottom = 'calc(var(--player-expanded-height, 350px) + 20px)';
-                } else {
-                    // bodyElement.style.paddingBottom = 'var(--player-mini-height, 75px)';
-                }
-                // More sophisticated padding adjustment might be needed based on your exact expanded layout
-            });
-    
-            // Optional: Make clicking anywhere on the mini-view (except controls) expand it
-            const miniViewDetails = dynamicPlayer.querySelector('.mini-view-details');
-            if (miniViewDetails) {
-                miniViewDetails.addEventListener('click', (event) => {
-                    // Ensure the click is not on a button within mini-view-details
-                    if (!event.target.closest('button')) {
-                        // Programmatically click the expand/collapse button
-                        expandCollapseBtn.click();
-                    }
-                });
-            }
-        }
-
-        bodyElement.style.setProperty('--player-mini-height', '70px'); // Example mini height
-        bodyElement.style.setProperty('--player-expanded-height', 'auto'); // Or a fixed height like 400px
-        bodyElement.style.paddingBottom = 'var(--player-mini-height)';
-    
-    
-    </script>
+    <script src="index.js"></script>
 
 </body>
 </html>

@@ -829,6 +829,7 @@
     });
     
     seekBar.addEventListener('input', () => {
+      console.log(seekBar.value)
       audio.currentTime = seekBar.value;
     });
     
