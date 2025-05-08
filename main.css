@@ -10,7 +10,340 @@
     --border-radius-sm: 8px;
     --border-radius-md: 12px;
     --font-family: 'Poppins', sans-serif;
+    --player-mini-height: 70px; /* JS will also use this for body padding */
+    --player-expanded-height: auto; /* Or a fixed height e.g., 450px */
+    --player-bg: var(--secondary-bg); /* #27293d; */
+    --player-accent: var(--accent-color);
+    --player-text-primary: var(--text-primary);
+    --player-text-secondary: var(--text-secondary);
+    --player-border-radius: var(--border-radius-md); /* 12px */
+
 }
+
+/* --- General Dynamic Player Styling --- */
+.dynamic-music-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--player-bg);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Important for transitions and hiding elements */
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: var(--player-mini-height); /* Initial height for mini player */
+}
+
+.player-progress-container {
+    height: 4px; /* Thin progress bar */
+    background-color: rgba(255,255,255,0.1); /* Light track for progress */
+    width: 100%;
+    cursor: pointer;
+}
+.player-progress-fill {
+    height: 100%;
+    background-color: var(--player-accent);
+    transition: width 0.1s linear;
+}
+
+.player-main-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px; /* Use container for side padding */
+    flex-grow: 1; /* Take remaining height */
+    position: relative; /* For positioning expand button */
+}
+
+/* --- Styling for MINI state --- */
+.dynamic-music-player:not(.expanded) .player-main-content {
+    height: calc(var(--player-mini-height) - 4px); /* Subtract progress bar height */
+}
+
+.mini-view-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    min-width: 0; /* For text ellipsis */
+    cursor: pointer; /* Indicate it's clickable to expand */
+}
+.player-album-art-mini {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.player-info-mini {
+    min-width: 0;
+}
+.player-track-title-mini,
+.player-artist-name-mini {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--player-text-primary);
+}
+.player-artist-name-mini {
+    font-size: 0.75em;
+    color: var(--player-text-secondary);
+}
+
+/* Controls in Mini Mode */
+.player-controls-core {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.player-control-button {
+    background: none;
+    border: none;
+    color: var(--player-text-secondary);
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.player-control-button:hover {
+    color: var(--player-text-primary);
+}
+.player-control-button.main-play-pause {
+    font-size: 1.4em;
+    color: var(--player-accent);
+    /* You might make it slightly larger or styled differently */
+}
+.player-control-button.main-play-pause:hover {
+    color: var(--accent-hover);
+}
+
+
+/* Elements to HIDE in MINI mode */
+.dynamic-music-player:not(.expanded) .full-view-details,
+.dynamic-music-player:not(.expanded) .player-extra-controls,
+.dynamic-music-player:not(.expanded) .player-time-stamps {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.expand-collapse-button {
+    /* Position it on the right in mini mode */
+    margin-left: auto; /* Pushes it to the right of controls */
+    color: var(--player-text-secondary);
+}
+.dynamic-music-player:not(.expanded) .expand-collapse-button {
+    order: 5; /* Ensure it's last in flex order for mini mode */
+}
+
+
+/* --- Styling for EXPANDED state --- */
+.dynamic-music-player.expanded {
+    /* Transform into the full screen or larger modal-like player */
+    /* Option 1: Fixed height full screen (or near full screen) */
+    height: 100vh; /* Or e.g., 90vh, or a fixed px value like 500px */
+    /* Option 2: Content-driven height (if not full screen) */
+    /* height: var(--player-expanded-height); */
+
+    /* If it becomes a centered modal instead of full bottom bar: */
+    /*
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 420px;
+    border-radius: var(--player-border-radius);
+    height: auto; // Let content define height
+    max-height: 80vh;
+    */
+}
+
+.dynamic-music-player.expanded .player-main-content {
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the top in expanded view */
+    padding: 25px; /* More padding for expanded view */
+    height: 100%; /* Fill the expanded player height */
+    overflow-y: auto; /* If content exceeds height */
+}
+
+/* Show/Style elements for FULL view */
+.dynamic-music-player.expanded .mini-view-details {
+    display: none; /* Hide mini details in full view */
+}
+
+.dynamic-music-player.expanded .full-view-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px; /* Space below album art and info */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease 0.2s; /* Fade in after expand */
+}
+.player-album-art-full {
+    width: 60%;
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--player-border-radius);
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+.player-track-title-full {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: var(--player-text-primary);
+}
+.player-artist-name-full {
+    font-size: 1em;
+    color: var(--player-text-secondary);
+    margin: 0 0 15px 0;
+}
+
+.dynamic-music-player.expanded .player-time-stamps {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    color: var(--player-text-secondary);
+    width: 100%;
+    max-width: 350px; /* Align with typical player width */
+    margin: -10px auto 15px auto; /* Adjust positioning relative to progress bar */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease 0.2s;
+}
+/* Reposition progress bar for full view */
+.dynamic-music-player.expanded .player-progress-container {
+    order: 1; /* Order in flex layout */
+    height: 8px;
+    border-radius: 4px;
+    margin: 0 auto 10px auto; /* Center it */
+    width: 90%;
+    max-width: 350px;
+}
+
+
+.dynamic-music-player.expanded .player-controls-core {
+    order: 2; /* Order in flex layout */
+    width: 100%;
+    justify-content: center; /* Center main controls */
+    gap: 20px; /* More spacing */
+    margin: 15px 0;
+}
+.dynamic-music-player.expanded .player-control-button {
+    font-size: 1.3em; /* Larger icons in full mode */
+    width: 50px;
+    height: 50px;
+}
+.dynamic-music-player.expanded .player-control-button.main-play-pause {
+    font-size: 2.2em;
+    width: 70px;
+    height: 70px;
+    background-color: var(--player-accent);
+    color: var(--player-bg);
+}
+.dynamic-music-player.expanded .player-control-button.main-play-pause:hover {
+    background-color: var(--accent-hover);
+}
+
+
+.dynamic-music-player.expanded .player-extra-controls {
+    order: 3; /* Order in flex layout */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 350px;
+    margin: 15px auto;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease 0.2s;
+}
+.player-volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.player-volume-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100px; height: 5px;
+    background: var(--progress-bar-bg, #4a4a6a);
+    border-radius: 3px; cursor: pointer; outline: none;
+}
+.player-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 14px; height: 14px; background: var(--player-accent);
+    border-radius: 50%; cursor: pointer; margin-top: -4.5px;
+}
+.player-volume-slider::-moz-range-thumb {
+    width: 14px; height: 14px; background: var(--player-accent);
+    border-radius: 50%; cursor: pointer; border: none;
+}
+
+.dynamic-music-player.expanded .expand-collapse-button {
+    order: 0; /* Bring to top or specific position */
+    position: absolute; /* Or static if part of flex flow */
+    top: 15px;
+    right: 15px;
+    color: var(--player-text-secondary); /* Ensure visibility */
+    z-index: 10; /* Above other content if absolute */
+}
+
+/* Body padding adjustment based on player state */
+/* The JS sets these CSS variables now */
+body {
+    /* padding-bottom will be set by JS using these variables */
+    transition: padding-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Responsive adjustments for the expanded player */
+@media (max-width: 768px) {
+    .dynamic-music-player.expanded {
+        /* On mobile, it's more likely to be full screen or very tall */
+        height: 100vh; /* Example: Full height on mobile */
+        border-radius: 0; /* No rounded corners if full screen */
+    }
+    .player-album-art-full {
+        width: 50%;
+        max-width: 200px;
+    }
+    .player-track-title-full {
+        font-size: 1.4em;
+    }
+    .dynamic-music-player.expanded .player-controls-core {
+        margin: 10px 0;
+    }
+    .dynamic-music-player.expanded .player-extra-controls {
+         margin: 10px auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Basic Reset & Body */
 * {
@@ -218,7 +551,7 @@ img {
 /* Card Grid & Cards */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
 }
 
@@ -236,7 +569,7 @@ img {
 }
 .scrollable-row .card {
     flex: 0 0 auto; /* Prevent shrinking */
-    width: 180px; /* Fixed width for scrollable items */
+    width: 220px; /* Fixed width for scrollable items */
 }
 
 
@@ -249,7 +582,6 @@ img {
     position: relative; /* For absolute positioning of play button */
 }
 .card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 
@@ -282,17 +614,18 @@ img {
 .card-play-btn {
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    right: 5px;
     font-size: 2.5em; /* Larger icon */
     color: var(--accent-color);
-    opacity: 0;
-    transform: translateY(10px) scale(0.8);
+    opacity: 1;
+    transform: translateY(5px) scale(1.2);
     transition: opacity 0.2s ease, transform 0.2s ease;
+    margin-right: 10px;
 }
-.card:hover .card-play-btn {
+/* .card:hover .card-play-btn {
     opacity: 1;
     transform: translateY(0) scale(1);
-}
+} */
 .card-play-btn:hover {
     color: var(--accent-hover);
 }
@@ -359,7 +692,7 @@ img {
         font-size: 2em;
     }
     .scrollable-row .card {
-        width: 160px; /* Slightly smaller cards for tablets */
+        width: 220px; /* Slightly smaller cards for tablets */
     }
 }
 
@@ -445,7 +778,7 @@ img {
     }
     */
    .scrollable-row .card {
-        width: 140px; /* Even smaller for mobile scroll */
+        width: 220px; /* Even smaller for mobile scroll */
     }
 
     .genre-grid {
