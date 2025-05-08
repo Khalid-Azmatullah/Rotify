@@ -17,9 +17,9 @@
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Browse</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a class="active">Home</a></li>
+                    <li><a>Browse</a></li>
+                    <li><a>Search</a></li>
                 </ul>
             </nav>
             <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -32,13 +32,13 @@
         <section class="hero-section">
             <div class="container">
                 <div class="hero-content">
-                    <img src="https://via.placeholder.com/150x150.png?text=Featured+Album" alt="Featured Album Art" class="hero-album-art">
+                    <img src="Cover/Wavy-Punjabi-2024-20241115004315-500x500.jpg" alt="Featured Album Art" class="hero-album-art">
                     <div>
-                        <p class="hero-subtitle">FRESH NEW ALBUM</p>
-                        <h1 class="hero-title">Chromatic Dreams</h1>
-                        <p class="hero-artist">By Aura Weaver</p>
-                        <a href="#" class="btn btn-primary">Listen Now <i class="fas fa-play"></i></a>
-                        <a href="#" class="btn btn-secondary">View Album <i class="fas fa-info-circle"></i></a>
+                        <p class="hero-subtitle">FEATURED SONG</p>
+                        <h1 class="hero-title">Wavy</h1>
+                        <p class="hero-artist">By Song by Karan Aujla</p>
+                        <a class="btn btn-primary song_play">Listen Now <i class="fas fa-play"></i></a>
+                        <!-- <a class="btn btn-secondary">View Album <i class="fas fa-info-circle"></i></a> -->
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <h3 class="card-title">Echoes in Time</h3>
                             <p class="card-subtitle">Synthwave Collective</p>
-                            <a href="#" class="card-play-btn" aria-label="Play Echoes in Time"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play Echoes in Time"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                     <div class="card">
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <h3 class="card-title">Midnight Drive</h3>
                             <p class="card-subtitle">Neon Rider</p>
-                            <a href="#" class="card-play-btn" aria-label="Play Midnight Drive"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play Midnight Drive"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                     <div class="card">
@@ -69,7 +69,7 @@
                         <div class="card-body">
                             <h3 class="card-title">Future Groove</h3>
                             <p class="card-subtitle">Cosmic Funk</p>
-                            <a href="#" class="card-play-btn" aria-label="Play Future Groove"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play Future Groove"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                     <div class="card">
@@ -77,7 +77,7 @@
                         <div class="card-body">
                             <h3 class="card-title">Lost Signals</h3>
                             <p class="card-subtitle">The Voyagers</p>
-                            <a href="#" class="card-play-btn" aria-label="Play Lost Signals"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play Lost Signals"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                     <div class="card">
@@ -85,7 +85,7 @@
                         <div class="card-body">
                             <h3 class="card-title">City Lights</h3>
                             <p class="card-subtitle">Urban Flow</p>
-                            <a href="#" class="card-play-btn" aria-label="Play City Lights"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play City Lights"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                         <div class="card-body">
                             <h3 class="card-title">Chill Vibes</h3>
                             <p class="card-subtitle">Curated by MusicStream</p>
-                            <a href="#" class="card-play-btn" aria-label="Play Chill Vibes"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play Chill Vibes"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                     <div class="card playlist-card">
@@ -110,7 +110,7 @@
                         <div class="card-body">
                             <h3 class="card-title">Workout Beats</h3>
                             <p class="card-subtitle">150 Tracks</p>
-                            <a href="#" class="card-play-btn" aria-label="Play Workout Beats"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play Workout Beats"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                      <div class="card playlist-card">
@@ -118,18 +118,17 @@
                         <div class="card-body">
                             <h3 class="card-title">Focus Flow</h3>
                             <p class="card-subtitle">Instrumental Hits</p>
-                            <a href="#" class="card-play-btn" aria-label="Play Focus Flow"><i class="fas fa-play-circle"></i></a>
+                            <a class="card-play-btn song_play" aria-label="Play Focus Flow"><i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
+<!--
         <section class="content-section">
             <div class="container">
                 <h2 class="section-title">Top Artists</h2>
                 <div class="card-grid scrollable-row">
-                    <!-- Artist Card Example (circular image) -->
                     <div class="card artist-card">
                         <img src="https://via.placeholder.com/150x150.png?text=Artist+A" alt="Artist A" class="card-img artist-img">
                         <div class="card-body">
@@ -151,60 +150,35 @@
                 </div>
             </div>
         </section>
-
-        <section class="content-section">
+    -->
+        <!-- <section class="content-section">
             <div class="container">
                 <h2 class="section-title">Browse by Genre</h2>
                 <div class="genre-grid">
-                    <a href="#" class="genre-tag">Electronic</a>
-                    <a href="#" class="genre-tag">Pop</a>
-                    <a href="#" class="genre-tag">Hip Hop</a>
-                    <a href="#" class="genre-tag">Rock</a>
-                    <a href="#" class="genre-tag">Indie</a>
-                    <a href="#" class="genre-tag">Jazz</a>
-                    <a href="#" class="genre-tag">Classical</a>
-                    <a href="#" class="genre-tag">Ambient</a>
+                    <a class="genre-tag">Electronic</a>
+                    <a class="genre-tag">Pop</a>
+                    <a class="genre-tag">Hip Hop</a>
+                    <a class="genre-tag">Rock</a>
+                    <a class="genre-tag">Indie</a>
+                    <a class="genre-tag">Jazz</a>
+                    <a class="genre-tag">Classical</a>
+                    <a class="genre-tag">Ambient</a>
                 </div>
             </div>
-        </section>
+        </section> -->
 
     </main>
 
     <footer class="main-footer">
         <div class="container">
-            <p>© 2023 MusicStream. All Rights Reserved.</p>
+            <p>© 2025 Rotify. All Rights Reserved.</p>
             <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
+                <a>About</a>
+                <a>Terms of Service</a>
+                <a>Privacy Policy</a>
             </div>
         </div>
     </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="dynamic-music-player" id="dynamicPlayer"> <!-- Add an ID for easier JS targeting -->
 
@@ -216,7 +190,7 @@
         <div class="player-main-content container">
             <!-- Elements for MINI view -->
             <div class="mini-view-details">
-                <img src="https://via.placeholder.com/50x50.png?text=Art" alt="Album Art" class="player-album-art-mini">
+                <!-- <img src="https://via.placeholder.com/50x50.png?text=Art" alt="Album Art" class="player-album-art-mini"> -->
                 <div class="player-info-mini">
                     <div class="player-track-title-mini">Current Song Title</div>
                     <div class="player-artist-name-mini">Artist Name</div>
@@ -238,7 +212,7 @@
     
             <!-- Elements for FULL view (Initially hidden or styled differently) -->
             <div class="full-view-details">
-                <img src="https://via.placeholder.com/300x300.png?text=Album+Art" alt="Album Art" class="player-album-art-full">
+                <!-- <img src="https://via.placeholder.com/300x300.png?text=Album+Art" alt="Album Art" class="player-album-art-full"> -->
                 <div class="player-info-full">
                     <h2 class="player-track-title-full">Song Title Here</h2>
                     <p class="player-artist-name-full">Artist Name</p>
@@ -250,9 +224,9 @@
             </div>
     
             <div class="player-extra-controls">
-                 <button class="player-control-button shuffle-button" aria-label="Shuffle">
+                 <!-- <button class="player-control-button shuffle-button" aria-label="Shuffle">
                     <i class="fas fa-random"></i>
-                </button>
+                </button> -->
                 <button class="player-control-button repeat-button" aria-label="Repeat">
                     <i class="fas fa-redo"></i>
                 </button>
@@ -260,7 +234,7 @@
                     <button class="player-control-button volume-icon-button" aria-label="Mute">
                         <i class="fas fa-volume-up"></i>
                     </button>
-                    <input type="range" min="0" max="100" value="80" class="player-volume-slider" aria-label="Volume">
+                    <!-- <input type="range" min="0" max="100" value="80" class="player-volume-slider" aria-label="Volume"> -->
                 </div>
             </div>
     
@@ -276,7 +250,6 @@
 
 
     <script>
-        // Basic mobile nav toggle
         const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
         const mainNav = document.querySelector('.main-nav');
 
@@ -287,17 +260,11 @@
                 mobileNavToggle.innerHTML = isExpanded ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
             });
         }
-
-
-
-
-
-                // ... (mobileNavToggle script if it's in the same file) ...
     
-                const dynamicPlayer = document.getElementById('dynamicPlayer');
+        const dynamicPlayer = document.getElementById('dynamicPlayer');
         const playPauseBtn = dynamicPlayer.querySelector('.main-play-pause');
         const expandCollapseBtn = dynamicPlayer.querySelector('.expand-collapse-button');
-        const bodyElement = document.body; // To adjust padding
+        const bodyElement = document.body;
     
         // --- Play/Pause Logic (Example) ---
         let isPlaying = false; // This would be tied to actual audio state
@@ -346,11 +313,7 @@
                 });
             }
         }
-    
-        // Adjust body padding initially for the mini player
-        // This assumes the player starts in mini mode and is fixed at the bottom.
-        // If it's not fixed, this body padding adjustment is more complex.
-        // Define CSS variables for heights for easier management.
+
         bodyElement.style.setProperty('--player-mini-height', '70px'); // Example mini height
         bodyElement.style.setProperty('--player-expanded-height', 'auto'); // Or a fixed height like 400px
         bodyElement.style.paddingBottom = 'var(--player-mini-height)';
