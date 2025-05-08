@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Music Player</title>
+    <link rel="stylesheet" href="new.css">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Optional - for a nice font) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="music-player">
+        <div class="album-art-section">
+            <img src="https://via.placeholder.com/300x300.png?text=Album+Art" alt="Album Art" class="album-art">
+            <div class="track-info">
+                <h2 class="track-title">Song Title Here</h2>
+                <p class="artist-name">Artist Name</p>
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="time-stamps">
+                    <span class="current-time">0:00</span>
+                    <span class="total-time">3:45</span>
+                </div>
+            </div>
+
+            <div class="main-controls">
+                <button class="control-button shuffle-button" aria-label="Shuffle">
+                    <i class="fas fa-random"></i>
+                </button>
+                <button class="control-button prev-button" aria-label="Previous Track">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-button play-pause-button" aria-label="Play">
+                    <i class="fas fa-play"></i>
+                    <!-- <i class="fas fa-pause"></i> Use JS to toggle this -->
+                </button>
+                <button class="control-button next-button" aria-label="Next Track">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="control-button repeat-button" aria-label="Repeat">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+
+            <div class="volume-control">
+                <button class="control-button volume-icon-button" aria-label="Mute">
+                    <i class="fas fa-volume-up"></i>
+                    <!-- <i class="fas fa-volume-mute"></i> Use JS to toggle this -->
+                </button>
+                <input type="range" min="0" max="100" value="80" class="volume-slider" aria-label="Volume">
+            </div>
+        </div>
+    </div>
+
+    <!-- Basic JavaScript for play/pause icon toggle example (optional) -->
+    <script>
+        const playPauseBtn = document.querySelector('.play-pause-button');
+        const playIcon = '<i class="fas fa-play"></i>';
+        const pauseIcon = '<i class="fas fa-pause"></i>';
+        let isPlaying = false;
+
+        if (playPauseBtn) {
+            playPauseBtn.addEventListener('click', () => {
+                isPlaying = !isPlaying;
+                playPauseBtn.innerHTML = isPlaying ? pauseIcon : playIcon;
+                playPauseBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
+            });
+        }
+    </script>
+</body>
+</html>
