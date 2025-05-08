@@ -170,6 +170,7 @@
 }
 
 .dynamic-music-player.expanded .player-main-content {
+    margin-top: 50px;
     flex-direction: column;
     justify-content: flex-start; /* Align items to the top in expanded view */
     padding-inline: 25px; /* More padding for expanded view */
