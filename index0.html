@@ -3,198 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Web Player - Inline Icon Search</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome CDN -->
+    <title>Music Web Player - Spotify-like Search Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
             --primary-bg: #1e1e2f;
             --secondary-bg: #27293d;
-            --card-bg: #2c2e43;
-            --accent-color: #ff6b6b;
+            --card-bg: #2c2e43; /* Spotify uses a slightly lighter card, #181818 on dark, but we'll adapt */
+            --accent-color: #ff6b6b; /* Spotify uses green #1DB954, but we'll stick to your palette */
             --accent-hover: #ff8c8c;
-            --text-primary: #e0e0e0;
-            --text-secondary: #a0a0c0;
+            --text-primary: #e0e0e0; /* Spotify often uses pure white #FFFFFF */
+            --text-secondary: #a0a0c0; /* Spotify uses a lighter gray #b3b3b3 */
             --shadow-color: rgba(0, 0, 0, 0.3);
             --border-radius-sm: 8px;
             --border-radius-md: 12px;
-            --font-family: 'Poppins', sans-serif;
+            --font-family: 'Poppins', sans-serif; /* Spotify uses Circular, Poppins is a good fallback */
             --player-mini-height: 70px;
+            --suggestion-bg: var(--card-bg);
+            --suggestion-item-hover-bg: var(--primary-bg);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-family); background-color: var(--primary-bg); color: var(--text-primary); padding: 20px; padding-bottom: calc(var(--player-mini-height) + 40px); }
+        /* Header and Search Input styles (condensed for brevity, same as before) */
+        header { text-align: center; margin-bottom: 30px; } header h1 { font-size: 1.8rem; margin-bottom: 10px; } header nav a { color: var(--accent-color); margin: 0 10px; text-decoration: none; font-size: 0.9rem; } header nav a:hover { text-decoration: underline; }
+        .search-container { background-color: var(--secondary-bg); padding: 20px; border-radius: var(--border-radius-md); margin-bottom: 30px; box-shadow: 0 4px 15px var(--shadow-color); }
+        .search-container h2 { color: var(--text-primary); margin-bottom: 15px; font-weight: 600; font-size: 1.5rem; }
+        .search-input-area { position: relative; }
+        .search-input-wrapper { position: relative; display: flex; align-items: center; background-color: var(--card-bg); border: 1px solid var(--primary-bg); border-radius: var(--border-radius-sm); transition: border-color 0.3s ease, box-shadow 0.3s ease; z-index: 10; }
+        .search-input-wrapper.suggestions-visible { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; }
+        .search-input-wrapper:focus-within { border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3); }
+        .search-input { flex-grow: 1; padding: 12px 45px 12px 15px; font-size: 1rem; background-color: transparent; color: var(--text-primary); border: none; outline: none; min-width: 0; }
+        .search-input::placeholder { color: var(--text-secondary); opacity: 0.8; }
+        .search-trigger-icon-button { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); background-color: var(--accent-color); color: white; border: none; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.3s ease; font-size: 1rem; }
+        .search-trigger-icon-button:hover { background-color: var(--accent-hover); }
+        .search-suggestions { list-style: none; padding: 0; margin: 0; background-color: var(--suggestion-bg); border: 1px solid var(--primary-bg); border-top: none; border-bottom-left-radius: var(--border-radius-sm); border-bottom-right-radius: var(--border-radius-sm); box-shadow: 0 8px 10px var(--shadow-color); position: absolute; top: 100%; left: 0; right: 0; z-index: 5; max-height: 250px; overflow-y: auto; display: none; }
+        .search-suggestions.visible { display: block; }
+        .suggestion-item { padding: 10px 15px; cursor: pointer; color: var(--text-secondary); border-bottom: 1px solid var(--primary-bg); transition: background-color 0.2s ease, color 0.2s ease; display: flex; align-items: center; gap: 10px; } .suggestion-item:last-child { border-bottom: none; } .suggestion-item:hover, .suggestion-item.active { background-color: var(--suggestion-item-hover-bg); color: var(--text-primary); } .suggestion-item .item-artwork { width: 30px; height: 30px; background-color: var(--secondary-bg); border-radius: 4px; flex-shrink: 0; } .suggestion-item .item-title { font-weight: 600; color: var(--text-primary); } .suggestion-item .item-artist { font-size: 0.85em; color: var(--text-secondary); } .suggestion-item:hover .item-artist, .suggestion-item.active .item-artist { color: var(--text-primary); }
+
+        /* --- Spotify-Like Search Results Outlet --- */
+        .spotify-search-results {
+            margin-top: 30px; /* Space from search bar/suggestions */
+            display: grid;
+            gap: 30px; /* Gap between sections */
         }
 
-        body {
-            font-family: var(--font-family);
-            background-color: var(--primary-bg);
-            color: var(--text-primary);
-            padding: 20px;
-            padding-bottom: calc(var(--player-mini-height) + 40px);
-        }
+        /* .results-section {
+            /* No specific styling needed for the section wrapper itself unless for spacing */
+        /*} */
 
-        header { text-align: center; margin-bottom: 30px; }
-        header h1 { font-size: 1.8rem; margin-bottom: 10px; }
-        header nav a { color: var(--accent-color); margin: 0 10px; text-decoration: none; font-size: 0.9rem; }
-        header nav a:hover { text-decoration: underline; }
-
-
-        /* --- Search Section Styles --- */
-        .search-container {
-            background-color: var(--secondary-bg);
-            padding: 20px;
-            border-radius: var(--border-radius-md);
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-
-        .search-container h2 {
-            color: var(--text-primary);
+        .results-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
-            font-weight: 600;
-            font-size: 1.5rem;
         }
 
-        .search-input-wrapper {
-            position: relative;
+        .results-section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .results-section-showall { /* "Show all" link */
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .results-section-showall:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+        }
+
+        /* Grid for cards within a section */
+        .results-grid {
+            display: grid;
+            /* Adjust columns for different item types or responsiveness */
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Responsive grid */
+            gap: 20px;
+        }
+        /* Horizontal scroll for sections like "Songs" if preferred over grid */
+        .results-horizontal-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 15px; /* For scrollbar visibility */
+            /* Hide scrollbar visually (optional, browser support varies) */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .results-horizontal-scroll::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .results-horizontal-scroll .result-card {
+            flex: 0 0 auto; /* Prevent shrinking/growing */
+            width: 170px; /* Fixed width for horizontal items */
+        }
+
+
+        /* Generic Result Card (Artist, Album, Playlist) */
+        .result-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            position: relative; /* For play button overlay */
+            overflow: hidden; /* Ensure play button doesn't overflow card corners */
+        }
+        .result-card:hover {
+            background-color: var(--secondary-bg); /* Lighten on hover */
+        }
+        .result-card:hover .play-button-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-artwork {
+            width: 100%;
+            padding-bottom: 100%; /* Creates a square aspect ratio */
+            background-color: var(--secondary-bg); /* Placeholder color */
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--border-radius-sm); /* Rounded artwork */
+            margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .card-artwork.artist { /* Circular artwork for artists */
+            border-radius: 50%;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-subtitle .item-type { /* "Artist", "Album", "Playlist" */
+            text-transform: capitalize;
+        }
+
+
+        /* Song Item (typically a list item, not a card) */
+        .song-item {
             display: flex;
             align-items: center;
-            background-color: var(--card-bg);
-            border: 1px solid var(--primary-bg);
+            padding: 8px 0; /* Minimal padding, often part of a list without individual cards */
             border-radius: var(--border-radius-sm);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
         }
-
-        .search-input-wrapper:focus-within {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 1px var(--accent-color);
+        .song-item:hover {
+            background-color: rgba(255,255,255,0.07); /* Subtle hover like Spotify */
         }
-
-        .search-input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            /* Adjust padding-right for the icon button's width */
-            padding-right: 45px; /* Approx width of icon button + some space */
-            font-size: 1rem;
-            background-color: transparent;
-            color: var(--text-primary);
-            border: none;
-            outline: none;
-            min-width: 0;
-        }
-
-        .search-input::placeholder {
+        .song-item .song-index {
             color: var(--text-secondary);
-            opacity: 0.8;
+            width: 30px;
+            text-align: right;
+            margin-right: 15px;
+            font-size: 0.9rem;
+        }
+        .song-item .song-artwork-sm {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-bg);
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .song-item .song-info {
+            flex-grow: 1;
+            min-width: 0; /* For ellipsis */
+        }
+        .song-item .song-title {
+            font-size: 0.95rem;
+            font-weight: 500; /* Spotify uses lighter weight for song titles in lists */
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .song-item .song-artist {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .song-item .song-duration {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-left: 15px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .song-item .song-actions button { /* Like/More options */
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1rem;
+            margin-left: 8px;
+        }
+        .song-item .song-actions button:hover {
+            color: var(--text-primary);
         }
 
-        .search-trigger-icon-button { /* Renamed for clarity */
+
+        /* Play Button Overlay for Cards */
+        .play-button-overlay {
             position: absolute;
-            right: 4px; /* Small gap from the edge */
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: transparent;
-            color:#e0e0e0;
-            border: none;
-            /* Make it circular or slightly rounded square */
-            border-radius: 50%; /* Circular */
-            /* border-radius: calc(var(--border-radius-sm) - 4px); /* Rounded square */
-            width: 34px;  /* Fixed width for icon button */
-            height: 34px; /* Fixed height for icon button */
+            bottom: 10px; /* Adjust positioning */
+            right: 10px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--accent-color); /* Spotify uses green */
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            opacity: 0; /* Hidden by default */
+            transform: translateY(10px); /* Start slightly offset for transition */
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 2;
+        }
+
+        /* Top Result - more prominent card */
+        .top-result-card {
+            display: flex; /* Horizontal layout */
+            gap: 20px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius-md);
+            align-items: center; /* Vertically align items */
             cursor: pointer;
-            transition: color 0.3s ease;
-            font-size: 1rem; /* Size of the icon */
+            transition: background-color 0.3s ease;
+        }
+         .top-result-card:hover {
+            background-color: var(--secondary-bg);
+        }
+        .top-result-card .card-artwork {
+            width: 100px; /* Fixed size for top result artwork */
+            height: 100px;
+            padding-bottom: 0; /* Override square aspect ratio for fixed size */
+            margin-bottom: 0; /* No margin below artwork here */
+            flex-shrink: 0;
+        }
+        .top-result-card .card-info {
+            flex-grow: 1;
+        }
+        .top-result-card .card-title {
+            font-size: 1.5rem; /* Larger title for top result */
+            margin-bottom: 8px;
+        }
+        .top-result-card .card-subtitle {
+            font-size: 0.9rem;
+        }
+        .top-result-card .item-type-badge { /* "Artist", "Song" etc. */
+            display: inline-block;
+            background-color: var(--secondary-bg);
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 10px;
+            text-transform: uppercase;
         }
 
-        .search-trigger-icon-button:hover {
-            color:  var(--accent-color);
-        }
 
-        /* --- Search Results --- */
-        .search-results-outlet { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--card-bg); }
-        .search-results-outlet h3.results-title,
-        .search-results-outlet p.results-feedback { color: var(--text-secondary); margin-bottom: 15px; font-weight: 400; font-size: 1.1rem; }
-        .result-item { background-color: var(--card-bg); padding: 15px; border-radius: var(--border-radius-sm); margin-bottom: 10px; box-shadow: 0 2px 5px var(--shadow-color); display: flex; align-items: center; gap: 15px; }
-        .result-item-artwork { width: 60px; height: 60px; background-color: var(--primary-bg); border-radius: var(--border-radius-sm); flex-shrink: 0; }
-        .result-item-info { flex-grow: 1; min-width: 0; }
-        .result-item-info h4 { color: var(--text-primary); margin: 0 0 5px 0; font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .result-item-info p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        /* --- Player Bar (condensed) --- */
+        .player-bar-placeholder { position: fixed; bottom: 0; left: 0; width: 100%; height: var(--player-mini-height); background-color: var(--player-bg, var(--secondary-bg)); /* ... */ }
 
-        /* --- Player Bar --- */
-        .player-bar-placeholder { position: fixed; bottom: 0; left: 0; width: 100%; height: var(--player-mini-height); background-color: var(--player-bg, var(--secondary-bg)); color: var(--player-text-primary, var(--text-primary)); display: flex; align-items: center; justify-content: center; padding: 0 20px; border-top: 1px solid var(--primary-bg); box-shadow: 0 -2px 10px var(--shadow-color); z-index: 1000; }
-        .player-bar-placeholder p { color: var(--player-text-secondary, var(--text-secondary)); font-size: 0.9rem; }
-
-        /* --- Media Queries --- */
-        @media (max-width: 992px) {
-            .search-container h2 { font-size: 1.4rem; }
-            .search-results-outlet h3.results-title { font-size: 1rem; }
-        }
+        /* --- Media Queries (Simplified examples) --- */
         @media (max-width: 767px) {
-            body { padding: 15px; padding-bottom: calc(var(--player-mini-height) + 30px); }
-            header h1 { font-size: 1.6rem; }
-            header nav { display: flex; flex-direction: column; gap: 5px; }
-            header nav a { margin: 0; }
-            .search-container { padding: 15px; }
-            .search-container h2 { font-size: 1.3rem; margin-bottom: 10px; }
-            .search-input { font-size: 0.95rem; padding-right: 40px; /* Adjust for smaller button */ }
-            .search-trigger-icon-button { width: 30px; height: 30px; font-size: 0.9rem; right: 5px; }
-            .result-item { padding: 10px; gap: 10px; }
-            .result-item-artwork { width: 50px; height: 50px; }
-            .result-item-info h4 { font-size: 0.95rem; }
-            .result-item-info p { font-size: 0.85rem; }
-            .player-bar-placeholder p { font-size: 0.8rem; text-align: center; }
-        }
-        @media (max-width: 480px) {
-            header h1 { font-size: 1.4rem; }
-            .search-container h2 { font-size: 1.2rem; }
-            .search-input { font-size: 0.9rem; padding: 10px; padding-right: 38px; }
-            .search-trigger-icon-button { width: 28px; height: 28px; font-size: 0.85rem; right: 5px; }
-            .result-item-artwork { width: 40px; height: 40px; }
-            .result-item-info h4 { font-size: 0.9rem; }
-            .result-item-info p { font-size: 0.8rem; }
+            .results-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* Smaller cards on mobile */
+                gap: 15px;
+            }
+            .results-horizontal-scroll .result-card {
+                 width: 140px;
+            }
+            .results-section-title { font-size: 1.2rem; }
+            .song-item .song-index { display: none; } /* Hide index on mobile */
+            .song-item .song-duration { font-size: 0.75rem; }
+            .top-result-card { flex-direction: column; align-items: flex-start; text-align: left; }
+            .top-result-card .card-artwork { width: 80px; height: 80px; margin-bottom: 15px; }
+            .top-result-card .card-title { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
-
+    <!-- Header and Search Input Area (same as before) -->
     <header>
         <h1>My Music Player</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#search">Search</a>
-            <a href="#library">Library</a>
-        </nav>
+        <nav> <a href="#home">Home</a> <a href="#search">Search</a> <a href="#library">Library</a> </nav>
     </header>
-
     <main id="main-content-area">
         <div id="search-page-content">
             <div class="search-container">
                 <h2>Find Your Music</h2>
-                <div class="search-input-wrapper">
-                    <input type="search" id="searchInput" class="search-input" placeholder="Songs, artists, albums...">
-                    <!-- MODIFIED: Button now uses Font Awesome icon -->
-                    <button type="button" id="searchButton" class="search-trigger-icon-button" aria-label="Search">
-                        <i class="fas fa-search"></i>
-                    </button>
+                <div class="search-input-area">
+                    <div class="search-input-wrapper">
+                        <input type="search" id="searchInput" class="search-input" placeholder="What do you want to listen to?" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" aria-controls="suggestionsList">
+                        <button type="button" id="searchButton" class="search-trigger-icon-button" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <ul id="suggestionsList" class="search-suggestions" role="listbox"></ul>
                 </div>
 
-                <div id="searchResults" class="search-results-outlet">
-                    <p class="results-feedback">Enter a query above and click Search.</p>
+                <!-- SPOTIFY-LIKE SEARCH RESULTS - Populated by JS -->
+                <div id="searchResultsOutlet" class="spotify-search-results">
+                    <!-- Example Structure - JS will build this dynamically -->
+
+                    <!-- Top Result Section -->
+                    <section class="results-section" id="top-result-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Top result</h3>
+                        </div>
+                        <!-- JS inserts .top-result-card here -->
+                        <div class="top-result-card" data-id="artist-123">
+                            <div class="card-artwork artist" style="background-image: url('https://via.placeholder.com/100/E0E0E0/1E1E2F?text=Artist');"></div>
+                            <div class="card-info">
+                                <h4 class="card-title">The Weeknd</h4>
+                                <span class="item-type-badge">Artist</span>
+                            </div>
+                            <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                        </div>
+                    </section>
+
+                    <!-- Songs Section -->
+                    <section class="results-section" id="songs-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Songs</h3>
+                            <a href="#" class="results-section-showall">Show all</a>
+                        </div>
+                        <div class="songs-list"> <!-- Wrapper for song items -->
+                            <!-- JS inserts .song-item here -->
+                            <div class="song-item" data-id="song-001">
+                                <span class="song-index">1</span>
+                                <!-- <div class="song-artwork-sm" style="background-image: url('https://via.placeholder.com/40/E0E0E0/1E1E2F?text=S');"></div> -->
+                                <div class="song-info">
+                                    <div class="song-title">Blinding Lights</div>
+                                    <div class="song-artist">The Weeknd</div>
+                                </div>
+                                <!-- <div class="song-actions">
+                                    <button aria-label="More options"><i class="fas fa-ellipsis-h"></i></button>
+                                </div> -->
+                                <div class="song-duration">3:20</div>
+                            </div>
+                            <div class="song-item" data-id="song-002">
+                                <span class="song-index">2</span>
+                                <!-- <div class="song-artwork-sm" style="background-image: url('https://via.placeholder.com/40/E0E0E0/1E1E2F?text=S');"></div> -->
+                                <div class="song-info">
+                                    <div class="song-title">Save Your Tears</div>
+                                    <div class="song-artist">The Weeknd</div>
+                                </div>
+                                 <!-- <div class="song-actions">
+                                    <button aria-label="More options"><i class="fas fa-ellipsis-h"></i></button>
+                                </div> -->
+                                <div class="song-duration">3:35</div>
+                            </div>
+                            <!-- ... more song items ... -->
+                        </div>
+                    </section>
+
+                    <!-- Artists Section -->
+                    <section class="results-section" id="artists-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Artists</h3>
+                            <a href="#" class="results-section-showall">Show all</a>
+                        </div>
+                        <div class="results-grid"> <!-- or .results-horizontal-scroll -->
+                            <!-- JS inserts .result-card here -->
+                            <div class="result-card" data-id="artist-456">
+                                <div class="card-artwork artist" style="background-image: url('https://via.placeholder.com/150/A0A0C0/1E1E2F?text=Artist');"></div>
+                                <h4 class="card-title">Daft Punk</h4>
+                                <p class="card-subtitle"><span class="item-type">Artist</span></p>
+                                <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                            </div>
+                            <div class="result-card" data-id="artist-789">
+                                <div class="card-artwork artist" style="background-image: url('https://via.placeholder.com/150/A0A0C0/1E1E2F?text=Artist');"></div>
+                                <h4 class="card-title">Justice</h4>
+                                <p class="card-subtitle"><span class="item-type">Artist</span></p>
+                                <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                            </div>
+                            <!-- ... more artist cards ... -->
+                        </div>
+                    </section>
+
+                    <!-- Albums Section -->
+                    <!-- <section class="results-section" id="albums-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Albums</h3>
+                            <a href="#" class="results-section-showall">Show all</a>
+                        </div>
+                        <div class="results-grid">
+                            <div class="result-card" data-id="album-101">
+                                <div class="card-artwork" style="background-image: url('https://via.placeholder.com/150/A0A0C0/1E1E2F?text=Album');"></div>
+                                <h4 class="card-title">After Hours</h4>
+                                <p class="card-subtitle">The Weeknd</p>
+                                <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                            </div>
+                            ... more album cards ...
+                        </div>
+                    </section> -->
+
                 </div>
             </div>
         </div>
     </main>
-
-    <div class="player-bar-placeholder">
-        <p>Audio Player Controls & Now Playing Info</p>
-    </div>
-
+    <div class="player-bar-placeholder"> <p>Audio Player Controls & Now Playing Info</p> </div>
+    <script>
+        // Basic JS for search suggestions (same as before, condensed)
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsList = document.getElementById('suggestionsList');
+        const searchInputWrapper = searchInput.closest('.search-input-wrapper');
+        if(searchInput && suggestionsList && searchInputWrapper) {
+            searchInput.addEventListener('focus', () => { if (searchInput.value.length > 0 || suggestionsList.children.length > 0) { suggestionsList.classList.add('visible'); searchInputWrapper.classList.add('suggestions-visible'); searchInput.setAttribute('aria-expanded', 'true'); }});
+            searchInput.addEventListener('input', () => { if (searchInput.value.length > 0) { suggestionsList.classList.add('visible'); searchInputWrapper.classList.add('suggestions-visible'); searchInput.setAttribute('aria-expanded', 'true'); } else { suggestionsList.classList.remove('visible'); searchInputWrapper.classList.remove('suggestions-visible'); searchInput.setAttribute('aria-expanded', 'false'); suggestionsList.innerHTML = ''; }});
+            document.addEventListener('click', (event) => { const isClickInsideSearchArea = searchInput.parentElement.parentElement.contains(event.target); if (!isClickInsideSearchArea) { suggestionsList.classList.remove('visible'); searchInputWrapper.classList.remove('suggestions-visible'); searchInput.setAttribute('aria-expanded', 'false'); }});
+            suggestionsList.addEventListener('click', (event) => { const clickedItem = event.target.closest('.suggestion-item'); if (clickedItem) { searchInput.value = clickedItem.querySelector('.item-title').textContent; suggestionsList.classList.remove('visible'); searchInputWrapper.classList.remove('suggestions-visible'); searchInput.setAttribute('aria-expanded', 'false'); /* console.log('Selected:', searchInput.value); */ }});
+        }
+    </script>
 </body>
 </html>
