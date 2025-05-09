@@ -600,9 +600,9 @@ function skipTrack(direction, currentTrack) {
     document.querySelector('.player-track-title-mini').textContent = tracks[currentTrack].title;
     document.querySelector('.player-track-title-full').textContent = tracks[currentTrack].title;
     document.querySelector('.player-artist-name-mini').textContent = tracks[currentTrack].artist;
-    document.querySelector('.player-artist-name-full').textContent = tracks[currentTrack].artist; 
-    playPauseBtn.click()
+    document.querySelector('.player-artist-name-full').textContent = tracks[currentTrack].artist;
     audio.play();
+    playPauseBtn.click();
     updateMediaSession();
 }
 
