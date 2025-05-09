@@ -197,7 +197,103 @@
                     </div>
 
                     <div id="searchResults" class="search-results-outlet">
-                        <p class="results-feedback">Enter a query above and click Search.</p>
+                                        <div id="searchResultsOutlet" class="spotify-search-results">
+                    <!-- Example Structure - JS will build this dynamically -->
+
+                    <!-- Top Result Section -->
+                    <section class="results-section" id="top-result-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Top result</h3>
+                        </div>
+                        <!-- JS inserts .top-result-card here -->
+                        <div class="top-result-card" data-id="artist-123">
+                            <div class="card-artwork artist" style="background-image: url('https://via.placeholder.com/100/E0E0E0/1E1E2F?text=Artist');"></div>
+                            <div class="card-info">
+                                <h4 class="card-title">The Weeknd</h4>
+                                <span class="item-type-badge">Artist</span>
+                            </div>
+                            <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                        </div>
+                    </section>
+
+                    <!-- Songs Section -->
+                    <section class="results-section" id="songs-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Songs</h3>
+                            <a href="#" class="results-section-showall">Show all</a>
+                        </div>
+                        <div class="songs-list"> <!-- Wrapper for song items -->
+                            <!-- JS inserts .song-item here -->
+                            <div class="song-item" data-id="song-001">
+                                <span class="song-index">1</span>
+                                <!-- <div class="song-artwork-sm" style="background-image: url('https://via.placeholder.com/40/E0E0E0/1E1E2F?text=S');"></div> -->
+                                <div class="song-info">
+                                    <div class="song-title">Blinding Lights</div>
+                                    <div class="song-artist">The Weeknd</div>
+                                </div>
+                                <!-- <div class="song-actions">
+                                    <button aria-label="More options"><i class="fas fa-ellipsis-h"></i></button>
+                                </div> -->
+                                <div class="song-duration">3:20</div>
+                            </div>
+                            <div class="song-item" data-id="song-002">
+                                <span class="song-index">2</span>
+                                <!-- <div class="song-artwork-sm" style="background-image: url('https://via.placeholder.com/40/E0E0E0/1E1E2F?text=S');"></div> -->
+                                <div class="song-info">
+                                    <div class="song-title">Save Your Tears</div>
+                                    <div class="song-artist">The Weeknd</div>
+                                </div>
+                                <!-- <div class="song-actions">
+                                    <button aria-label="More options"><i class="fas fa-ellipsis-h"></i></button>
+                                </div> -->
+                                <div class="song-duration">3:35</div>
+                            </div>
+                            <!-- ... more song items ... -->
+                        </div>
+                    </section>
+
+                    <!-- Artists Section -->
+                    <section class="results-section" id="artists-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Artists</h3>
+                            <a href="#" class="results-section-showall">Show all</a>
+                        </div>
+                        <div class="results-grid"> <!-- or .results-horizontal-scroll -->
+                            <!-- JS inserts .result-card here -->
+                            <div class="result-card" data-id="artist-456">
+                                <div class="card-artwork artist" style="background-image: url('https://via.placeholder.com/150/A0A0C0/1E1E2F?text=Artist');"></div>
+                                <h4 class="card-title">Daft Punk</h4>
+                                <p class="card-subtitle"><span class="item-type">Artist</span></p>
+                                <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                            </div>
+                            <div class="result-card" data-id="artist-789">
+                                <div class="card-artwork artist" style="background-image: url('https://via.placeholder.com/150/A0A0C0/1E1E2F?text=Artist');"></div>
+                                <h4 class="card-title">Justice</h4>
+                                <p class="card-subtitle"><span class="item-type">Artist</span></p>
+                                <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                            </div>
+                            <!-- ... more artist cards ... -->
+                        </div>
+                    </section>
+
+                    <!-- Albums Section -->
+                    <!-- <section class="results-section" id="albums-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Albums</h3>
+                            <a href="#" class="results-section-showall">Show all</a>
+                        </div>
+                        <div class="results-grid">
+                            <div class="result-card" data-id="album-101">
+                                <div class="card-artwork" style="background-image: url('https://via.placeholder.com/150/A0A0C0/1E1E2F?text=Album');"></div>
+                                <h4 class="card-title">After Hours</h4>
+                                <p class="card-subtitle">The Weeknd</p>
+                                <div class="play-button-overlay"><i class="fas fa-play"></i></div>
+                            </div>
+                            ... more album cards ...
+                        </div>
+                    </section> -->
+
+                </div>
                     </div>
                 </div>
             </div>
