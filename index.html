@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rotify - Home</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -17,9 +17,9 @@
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a class="active">Home</a></li>
-                    <li><a>Browse</a></li>
-                    <li><a>Search</a></li>
+                    <li><a href="#home" data-page="home-content" class="nav-link active">Home</a></li>
+                    <li><a href="#browse" data-page="browse-content" class="nav-link">Browse</a></li>
+                    <li><a href="#search" data-page="search-content" class="nav-link">Search</a></li>
                 </ul>
             </nav>
             <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -29,160 +29,179 @@
     </header>
 
     <main>
-        <section class="hero-section">
-            <div class="container">
-                <div class="hero-content">
-                    <img src="Cover/Wavy-Punjabi-2024-20241115004315-500x500.jpg" alt="Featured Album Art" class="hero-album-art">
-                    <div>
-                        <p class="hero-subtitle">FEATURED SONG</p>
-                        <h1 class="hero-title">Wavy</h1>
-                        <p class="hero-artist">Song by Karan Aujla</p>
-                        <a class="btn btn-primary song_play" aria-label='WAVY'>Listen Now <i class="fas fa-play"></i></a>
-                        <!-- <a class="btn btn-secondary">View Album <i class="fas fa-info-circle"></i></a> -->
+        <section id="home-content" class="page-section">
+            <section class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <img src="Cover/Wavy-Punjabi-2024-20241115004315-500x500.jpg" alt="Featured Album Art" class="hero-album-art">
+                        <div>
+                            <p class="hero-subtitle">FEATURED SONG</p>
+                            <h1 class="hero-title">Wavy</h1>
+                            <p class="hero-artist">Song by Karan Aujla</p>
+                            <a class="btn btn-primary song_play" aria-label='WAVY'>Listen Now <i class="fas fa-play"></i></a>
+                            <!-- <a class="btn btn-secondary">View Album <i class="fas fa-info-circle"></i></a> -->
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="content-section">
-            <div class="container">
-                <h2 class="section-title">Favourites</h2>
-                <div class="card-grid scrollable-row">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Bijlee Bijlee</h3>
-                            <p class="card-subtitle">Harrdy Sandhu</p>
-                            <a class="card-play-btn song_play" aria-label='Bijlee Bijlee'><i class="fas fa-play-circle"></i></a>
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">Favourites</h2>
+                    <div class="card-grid scrollable-row">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Bijlee Bijlee</h3>
+                                <p class="card-subtitle">Harrdy Sandhu</p>
+                                <a class="card-play-btn song_play" aria-label='Bijlee Bijlee'><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Excuses</h3>
-                            <p class="card-subtitle">The Morning Benders</p>
-                            <a class="card-play-btn song_play" aria-label='Excuses'><i class="fas fa-play-circle"></i></a>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Excuses</h3>
+                                <p class="card-subtitle">The Morning Benders</p>
+                                <a class="card-play-btn song_play" aria-label='Excuses'><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Jhol</h3>
-                            <p class="card-subtitle">Divine</p>
-                            <a class="card-play-btn song_play" aria-label='Jhol'><i class="fas fa-play-circle"></i></a>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Jhol</h3>
+                                <p class="card-subtitle">Divine</p>
+                                <a class="card-play-btn song_play" aria-label='Jhol'><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Jugnu</h3>
-                            <p class="card-subtitle">Badshah</p>
-                            <a class="card-play-btn song_play" aria-label='Jugnu'><i class="fas fa-play-circle"></i></a>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Jugnu</h3>
+                                <p class="card-subtitle">Badshah</p>
+                                <a class="card-play-btn song_play" aria-label='Jugnu'><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Pal Pal</h3>
-                            <p class="card-subtitle">Jubin Nautiyal</p>
-                            <a class="card-play-btn song_play" aria-label='Pal Pal'><i class="fas fa-play-circle"></i></a>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Pal Pal</h3>
+                                <p class="card-subtitle">Jubin Nautiyal</p>
+                                <a class="card-play-btn song_play" aria-label='Pal Pal'><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Cheques</h3>
-                            <p class="card-subtitle">Shubh</p>
-                            <a class="card-play-btn song_play" aria-label='Cheques'><i class="fas fa-play-circle"></i></a>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Cheques</h3>
+                                <p class="card-subtitle">Shubh</p>
+                                <a class="card-play-btn song_play" aria-label='Cheques'><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">WAVY</h3>
-                            <p class="card-subtitle">Karan Aujla</p>
-                            <a class="card-play-btn song_play" aria-label='WAVY'><i class="fas fa-play-circle"></i></a>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">WAVY</h3>
+                                <p class="card-subtitle">Karan Aujla</p>
+                                <a class="card-play-btn song_play" aria-label='WAVY'><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
+                        
                     </div>
-                    
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="content-section">
-            <div class="container">
-                <h2 class="section-title">Popular Playlists</h2>
-                <div class="card-grid scrollable-row">
-                    <!-- Playlist Card Example (can use same .card structure) -->
-                    <div class="card playlist-card">
-                        <!-- <img src="https://via.placeholder.com/200x200.png?text=Playlist+1" alt="Playlist 1" class="card-img"> -->
-                        <div class="card-body">
-                            <h3 class="card-title">Chill Vibes</h3>
-                            <p class="card-subtitle">Curated by MusicStream</p>
-                            <a class="card-play-btn song_play" aria-label="Play Chill Vibes"><i class="fas fa-play-circle"></i></a>
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">Popular Playlists</h2>
+                    <div class="card-grid scrollable-row">
+                        <!-- Playlist Card Example (can use same .card structure) -->
+                        <div class="card playlist-card">
+                            <!-- <img src="https://via.placeholder.com/200x200.png?text=Playlist+1" alt="Playlist 1" class="card-img"> -->
+                            <div class="card-body">
+                                <h3 class="card-title">Chill Vibes</h3>
+                                <p class="card-subtitle">Curated by MusicStream</p>
+                                <a class="card-play-btn song_play" aria-label="Play Chill Vibes"><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card playlist-card">
-                        <!-- <img src="https://via.placeholder.com/200x200.png?text=Playlist+2" alt="Playlist 2" class="card-img"> -->
-                        <div class="card-body">
-                            <h3 class="card-title">Workout Beats</h3>
-                            <p class="card-subtitle">150 Tracks</p>
-                            <a class="card-play-btn song_play" aria-label="Play Workout Beats"><i class="fas fa-play-circle"></i></a>
+                        <div class="card playlist-card">
+                            <!-- <img src="https://via.placeholder.com/200x200.png?text=Playlist+2" alt="Playlist 2" class="card-img"> -->
+                            <div class="card-body">
+                                <h3 class="card-title">Workout Beats</h3>
+                                <p class="card-subtitle">150 Tracks</p>
+                                <a class="card-play-btn song_play" aria-label="Play Workout Beats"><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
-                    </div>
-                     <div class="card playlist-card">
-                        <!-- <img src="https://via.placeholder.com/200x200.png?text=Playlist+3" alt="Playlist 3" class="card-img"> -->
-                        <div class="card-body">
-                            <h3 class="card-title">Focus Flow</h3>
-                            <p class="card-subtitle">Instrumental Hits</p>
-                            <a class="card-play-btn song_play" aria-label="Play Focus Flow"><i class="fas fa-play-circle"></i></a>
+                        <div class="card playlist-card">
+                            <!-- <img src="https://via.placeholder.com/200x200.png?text=Playlist+3" alt="Playlist 3" class="card-img"> -->
+                            <div class="card-body">
+                                <h3 class="card-title">Focus Flow</h3>
+                                <p class="card-subtitle">Instrumental Hits</p>
+                                <a class="card-play-btn song_play" aria-label="Play Focus Flow"><i class="fas fa-play-circle"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+    <!--
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">Top Artists</h2>
+                    <div class="card-grid scrollable-row">
+                        <div class="card artist-card">
+                            <img src="https://via.placeholder.com/150x150.png?text=Artist+A" alt="Artist A" class="card-img artist-img">
+                            <div class="card-body">
+                                <h3 class="card-title">Aura Weaver</h3>
+                            </div>
+                        </div>
+                        <div class="card artist-card">
+                            <img src="https://via.placeholder.com/150x150.png?text=Artist+B" alt="Artist B" class="card-img artist-img">
+                            <div class="card-body">
+                                <h3 class="card-title">Neon Rider</h3>
+                            </div>
+                        </div>
+                        <div class="card artist-card">
+                            <img src="https://via.placeholder.com/150x150.png?text=Artist+C" alt="Artist C" class="card-img artist-img">
+                            <div class="card-body">
+                                <h3 class="card-title">Synthwave Collective</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        -->
+            <!-- <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">Browse by Genre</h2>
+                    <div class="genre-grid">
+                        <a class="genre-tag">Electronic</a>
+                        <a class="genre-tag">Pop</a>
+                        <a class="genre-tag">Hip Hop</a>
+                        <a class="genre-tag">Rock</a>
+                        <a class="genre-tag">Indie</a>
+                        <a class="genre-tag">Jazz</a>
+                        <a class="genre-tag">Classical</a>
+                        <a class="genre-tag">Ambient</a>
+                    </div>
+                </div>
+            </section> -->
         </section>
-<!--
-        <section class="content-section">
-            <div class="container">
-                <h2 class="section-title">Top Artists</h2>
-                <div class="card-grid scrollable-row">
-                    <div class="card artist-card">
-                        <img src="https://via.placeholder.com/150x150.png?text=Artist+A" alt="Artist A" class="card-img artist-img">
-                        <div class="card-body">
-                            <h3 class="card-title">Aura Weaver</h3>
-                        </div>
+        <section id="search-content" class="page-section" style="display: none;">
+            <div id="search-page-content">
+                <div class="search-container">
+                    <h2>Find Your Music</h2>
+                    <div class="search-input-wrapper">
+                        <input type="search" id="searchInput" class="search-input" placeholder="Songs, artists, albums...">
+                        <!-- MODIFIED: Button now uses Font Awesome icon -->
+                        <button type="button" id="searchButton" class="search-trigger-icon-button" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                    <div class="card artist-card">
-                        <img src="https://via.placeholder.com/150x150.png?text=Artist+B" alt="Artist B" class="card-img artist-img">
-                        <div class="card-body">
-                            <h3 class="card-title">Neon Rider</h3>
-                        </div>
-                    </div>
-                    <div class="card artist-card">
-                        <img src="https://via.placeholder.com/150x150.png?text=Artist+C" alt="Artist C" class="card-img artist-img">
-                        <div class="card-body">
-                            <h3 class="card-title">Synthwave Collective</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    -->
-        <!-- <section class="content-section">
-            <div class="container">
-                <h2 class="section-title">Browse by Genre</h2>
-                <div class="genre-grid">
-                    <a class="genre-tag">Electronic</a>
-                    <a class="genre-tag">Pop</a>
-                    <a class="genre-tag">Hip Hop</a>
-                    <a class="genre-tag">Rock</a>
-                    <a class="genre-tag">Indie</a>
-                    <a class="genre-tag">Jazz</a>
-                    <a class="genre-tag">Classical</a>
-                    <a class="genre-tag">Ambient</a>
-                </div>
-            </div>
-        </section> -->
 
+                    <div id="searchResults" class="search-results-outlet">
+                        <p class="results-feedback">Enter a query above and click Search.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="main-footer">

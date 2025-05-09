@@ -520,12 +520,12 @@ nextBtn.addEventListener('click', () => skipTrack(1))
 
 repeatBtn.addEventListener('click', () => {
     if (!document.querySelector('.fas.fa-redo').classList.contains('clicked')) {
-        currentTrackIndex = tracks.findIndex(track => track.src == decodeURIComponent(audio.src.split('/')[audio.src.split('/').length-1])) - 1
-        console.log(tracks.findIndex(track => track.src == decodeURIComponent(audio.src.split('/')[audio.src.split('/').length-1])))
+        currentTrackIndex = tracks.findIndex(track => track.src == `Songs/${decodeURIComponent(audio.src.split('/')[audio.src.split('/').length-1])}`) - 1
+        // console.log(tracks.findIndex(track => track.src == decodeURIComponent(audio.src.split('/')[audio.src.split('/').length-1])))
         document.querySelector('.fas.fa-redo').style.color = 'var(--player-accent)'
         document.querySelector('.fas.fa-redo').classList.add('clicked')
     } else{
-        currentTrackIndex = tracks.findIndex(track => track.src == decodeURIComponent(audio.src.split('/')[audio.src.split('/').length-1])) + 1
+        currentTrackIndex = tracks.findIndex(track => track.src == `Songs/${decodeURIComponent(audio.src.split('/')[audio.src.split('/').length-1])}`) + 1
         document.querySelector('.fas.fa-redo').style.color = 'inherit'
         document.querySelector('.fas.fa-redo').classList.remove('clicked')
     }
@@ -638,3 +638,49 @@ function updateMediaSession() {
 }
 
 
+
+
+
+
+
+const navLinks = document.querySelectorAll('.nav-link');
+const pageSections = document.querySelectorAll('.page-section');
+
+function showPage(pageId) {
+    pageSections.forEach(section => {
+        section.style.display = (section.id === pageId) ? 'block' : 'none';
+    });
+
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.page === pageId);
+    });
+
+    window.location.hash = pageId.replace('-content', '');
+}
+
+navLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor link behavior
+        const targetPageId = this.dataset.page;
+        showPage(targetPageId);
+    });
+});
+
+// Optional: Handle initial page load based on hash
+function handleHashChange() {
+    const hash = window.location.hash.substring(1); // Remove #
+    let targetPageId = 'home-content'; // Default page
+    if (hash) {
+        const potentialTarget = document.getElementById(hash + '-content');
+        if (potentialTarget) {
+            targetPageId = hash + '-content';
+        }
+    }
+    showPage(targetPageId);
+}
+
+// Initial page load
+handleHashChange();
+
+// Listen for hash changes (e.g., back/forward buttons)
+window.addEventListener('hashchange', handleHashChange);

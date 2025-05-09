@@ -175,7 +175,7 @@
     justify-content: flex-start; /* Align items to the top in expanded view */
     padding-inline: 25px; /* More padding for expanded view */
     padding-bottom: 25px;
-    padding-top: 100px;
+    padding-top: 25vh;
     height: 100%; /* Fill the expanded player height */
     overflow-y: auto; /* If content exceeds height */
 }
@@ -823,4 +823,12 @@ img {
         width: 150px;
         height: 150px;
     }
+}
+
+
+
+.display-false {
+    display: none;
+    opacity: 0;
+    visibility: hidden;   
 }
