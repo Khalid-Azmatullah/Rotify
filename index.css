@@ -926,7 +926,7 @@ img {
     .search-results-outlet h3.results-title { font-size: 1rem; }
 }
 @media (max-width: 767px) {
-    body { padding: 15px; padding-bottom: calc(var(--player-mini-height) + 30px); }
+    body { padding-bottom: calc(var(--player-mini-height) + 30px); }
     header h1 { font-size: 1.6rem; }
     header nav { display: flex; flex-direction: column; gap: 5px; }
     header nav a { margin: 0; }
