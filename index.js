@@ -153,15 +153,6 @@ tracks = [
         "ratio": 0.0059304190661284535
     },
     {
-        "url": "0pWsCiBvLOk",
-        "title": "Shubh - One Love (Official Audio)",
-        "duration": 159,
-        "song_name": "One Love",
-        "artist_name": "Shubh",
-        "views": 223984640,
-        "ratio": 0.008368743499554255
-    },
-    {
         "url": "k4yXQkG2s1E",
         "title": "Kala Chashma | Baar Baar Dekho | Sidharth M Katrina K | Prem, Hardeep, Badshah, Kam, Neha, Indeep",
         "duration": 173,
@@ -241,15 +232,6 @@ tracks = [
         "artist_name": "Badshah",
         "views": 23059077,
         "ratio": 0.009682651217999749
-    },
-    {
-        "url": "NwdQx2P_ytk",
-        "title": "Harrdy Sandhu - Bijlee Bijlee ft Palak Tiwari | Jaani | BPraak | Arvindr Khaira | Desi Melodies",
-        "duration": 245,
-        "song_name": "Bijlee Bijlee",
-        "artist_name": "Harrdy Sandhu",
-        "views": 560861860,
-        "ratio": 0.0079817247690902
     },
     {
         "url": "WWXm39leYew",
@@ -828,24 +810,6 @@ tracks = [
         "ratio": 0.013615025677648851
     },
     {
-        "url": "hxMNYkLN7tI",
-        "title": "Aaj Ki Raat -Full Song |Stree 2|Tamannaah Bhatia|Rajkummar Rao|Sachin-Jigar|Madhubanti|Divya|Amitabh",
-        "duration": 287,
-        "song_name": "Aaj Ki Raat",
-        "artist_name": "Sachin",
-        "views": 622567465,
-        "ratio": 0.0034348919919867642
-    },
-    {
-        "url": "8of5w7RgcTc",
-        "title": "Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic",
-        "duration": 147,
-        "song_name": "Pal Pal",
-        "artist_name": "Afusic",
-        "views": 76298305,
-        "ratio": 0.01286430937096178
-    },
-    {
         "url": "nFgsBxw-zWQ",
         "title": "Aayi Nai -Stree 2 | Shraddha Kapoor | Rajkummar Rao | Sachin-Jigar |Pawan Singh,Simran,Divya,Amitabh",
         "duration": 198,
@@ -1240,15 +1204,6 @@ tracks = [
         "artist_name": "KK",
         "views": 64796096,
         "ratio": 0.0045468634406616104
-    },
-    {
-        "url": "AbkEmIgJMcU",
-        "title": "Afusic - Pal Pal with @Talwiinder  (Official Visualiser) Prod. @AliSoomroMusic",
-        "duration": 208,
-        "song_name": "Pal Pal",
-        "artist_name": "Afusic",
-        "views": 13876322,
-        "ratio": 0.015206551130767937
     },
     {
         "url": "UoTHQuijtyc",
@@ -1970,6 +1925,21 @@ const searchResultContainer = document.querySelector('.songs-list');
 const originalSongs = searchResultContainer.innerHTML;
 let songPamps = document.querySelectorAll('.song-item');
 
+//Before search
+
+songPamps = document.querySelectorAll('.song-item')
+// console.log(songPamps)
+songPamps.forEach(pamp => {
+pamp.addEventListener('click', () => {
+        let song_name_id = pamp.getAttribute("data-id")
+        console.log(song_name_id)
+        const index = tracks.findIndex(track => track.song_name == song_name_id);
+        skipTrack(0, currentTrackIndex=index)
+    });
+})
+
+
+// After search
 function SEARCH(event) {
     var input, filter, ul, li, i, txtValueOne, txtValueTwo, a;
     input = document.getElementById("searchInput");
