@@ -1720,6 +1720,7 @@ divs.forEach(div => {
         let newSrc = this.getAttribute('aria-label');
         console.log(newSrc)
         const index = tracks.findIndex(track => track.song_name === newSrc);
+        console.log(index)
         skipTrack(0, currentTrackIndex=index)
     });
   });
