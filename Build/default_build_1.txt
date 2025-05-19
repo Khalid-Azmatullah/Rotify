@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotify - Home</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-headphones-alt"></i> Rotify
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" data-page="home-content" class="nav-link active">Home</a></li>
+                    <li><a href="#browse" data-page="browse-content" class="nav-link">Browse</a></li>
+                    <li><a href="#search" data-page="search-content" class="nav-link">Search</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="home-content" class="page-section">
+            <section class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <img src="Images/Wavy-Punjabi-2024-20241115004315-500x500.jpg" alt="Featured Album Art" class="hero-album-art">
+                        <div>
+                            <p class="hero-subtitle">FEATURED SONG</p>
+                            <h1 class="hero-title">Wavy</h1>
+                            <p class="hero-artist">Song by Karan Aujla</p>
+                            <a class="btn btn-primary song_play" aria-label='Wavy'>Listen Now <i class="fas fa-play"></i></a>
+                            <!-- <a class="btn btn-secondary">View Album <i class="fas fa-info-circle"></i></a> -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">Favourites</h2>
+                    <div class="card-grid scrollable-row">

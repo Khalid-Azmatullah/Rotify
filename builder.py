@@ -1,41 +1,35 @@
-import json
+from func.gen import gen_card
+from func.gen_search import build_search_card
+import song_manager
 
+full_build = """"""
+print("Downloaded Songs Successfully!")
+cards_build_sequence = ['favs', 'tops', 'underdogs']
 
+for i in range(1, 4):
+    print(i)
+    with open(f'Build/default_build_{i}.txt', 'r', encoding='utf-8') as file:
+        template = file.read()
+    
+    full_build = full_build + template + gen_card(cards_build_sequence[i-1]) + '\n'
 
+with open(f'Build/default_build_4.txt', 'r', encoding='utf-8') as file:
+    template = file.read()
 
-with open('trac.json', 'r') as f:
-    data = json.load(f)
+full_build = full_build + template + build_search_card()
 
-favs = ["Bijlee Bijlee", "Excuses", "Jhol", "Jugnu", "Pal Pal", "Cheques", "WAVY"]
-"""
-<div class="card">
-    <div class="card-body">
-        <h3 class="card-title">Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic</h3>
-        <p class="card-subtitle">Synthwave Collective</p>
-        <a class="card-play-btn song_play" aria-label="Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic"><i class="fas fa-play-circle"></i></a>
-    </div>
-</div>
-"""
+with open(f'Build/default_build_5.txt', 'r', encoding='utf-8') as file:
+    template = file.read()
 
-card_favourite_p1 = """<div class="card">
-    <div class="card-body">
-        <h3 class="card-title">"""
+full_build = full_build + template
 
-card_favourite_p2 = """</h3>
-        <p class="card-subtitle">"""
+with open('temp.html', 'w', encoding='utf-8') as file:
+    file.write(full_build)
 
-card_favourite_p3 = """</p>
-        <a class="card-play-btn song_play" aria-label='"""
+trash = input('DEFAULT: Check `temp.html` and confirm with `Y`')
 
-card_favourite_p4 = """'><i class="fas fa-play-circle"></i></a>
-    </div>
-</div>"""
-
-fav_cards = """"""
-for i in range(len(data)):
-    if data[i]['title'] in favs:
-        card = """"""
-        card = card + card_favourite_p1 + data[i]['title'] + card_favourite_p2 + data[i]['artist'] + card_favourite_p3 + data[i]['title'] + card_favourite_p4 + '\n\n'
-        fav_cards = fav_cards + card
-
-print(fav_cards)
+if trash == '':
+    exit
+elif trash == 'Y' or trash == 'y':
+    with open('index.html', 'w', encoding='utf-8') as file:
+        file.write(full_build)

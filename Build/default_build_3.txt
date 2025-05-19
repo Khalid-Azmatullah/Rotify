@@ -1,0 +1,8 @@
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">Underdogs</h2>
+                    <div class="card-grid scrollable-row">

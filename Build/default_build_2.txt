@@ -1,0 +1,8 @@
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">Top Songs</h2>
+                    <div class="card-grid scrollable-row">

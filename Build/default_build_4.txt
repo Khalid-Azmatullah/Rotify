@@ -1,0 +1,28 @@
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+        <section id="search-content" class="page-section" style="display: none;">
+            <div id="search-page-content">
+                <div class="search-container">
+                    <h2>Find Your Music</h2>
+                    <div class="search-input-wrapper">
+                        <input type="search" id="searchInput" onkeyup="SEARCH()" onkeydown="if (event.key === 'Enter') {this.blur();}" class="search-input" placeholder="Songs, artists, albums...">
+                        <!-- MODIFIED: Button now uses Font Awesome icon -->
+                        <button type="button" id="searchButton" onclick="SEARCH()" class="search-trigger-icon-button" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <div id="searchResults" class="search-results-outlet">
+                                        <div id="searchResultsOutlet" class="spotify-search-results">
+
+                    <!-- Songs Section -->
+                    <section class="results-section" id="songs-section">
+                        <div class="results-section-header">
+                            <h3 class="results-section-title">Songs</h3>
+                            <a href="#browse" class="results-section-showall">Show all</a>
+                        </div>
+                        <div class="songs-list">

@@ -1,0 +1,96 @@
+                        </div>
+
+                </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>© 2025 Rotify. No Rights Reserved.</p>
+            <div class="footer-links">
+                <a>About</a>
+                <a>Terms of Service</a>
+                <a>Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="dynamic-music-player" id="dynamicPlayer"> <!-- Add an ID for easier JS targeting -->
+
+        <!-- Progress Bar (Always visible or adaptable) -->
+        <div class="player-progress-container">
+            <div class="player-progress-fill" style="width: 30%;"></div> <!-- JS updates this -->
+        </div>
+    
+        <div class="player-main-content container">
+            <!-- Elements for MINI view -->
+            <div class="mini-view-details">
+                <!-- <img src="https://via.placeholder.com/50x50.png?text=Art" alt="Album Art" class="player-album-art-mini"> -->
+                <div class="player-info-mini">
+                    <div class="player-track-title-mini">Current Song Title</div>
+                    <div class="player-artist-name-mini">Artist Name</div>
+                </div>
+            </div>
+    
+            <!-- Main Controls (Adaptable for mini/full) -->
+            <div class="player-controls-core">
+                <button class="player-control-button prev-button" aria-label="Previous Track">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="player-control-button play-pause-button main-play-pause" aria-label="Play">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="player-control-button next-button" aria-label="Next Track">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+    
+            <!-- Elements for FULL view (Initially hidden or styled differently) -->
+            <div class="full-view-details">
+                <!-- <img src="https://via.placeholder.com/300x300.png?text=Album+Art" alt="Album Art" class="player-album-art-full"> -->
+                <div class="player-info-full">
+                    <h2 class="player-track-title-full">Song Title Here</h2>
+                    <p class="player-artist-name-full">Artist Name</p>
+                </div>
+                <div class="player-time-stamps">
+                    <span class="player-current-time">0:00</span>
+                    <div class="player-progress-container-full">
+                        <div class="player-progress-fill-full" style="width: 30%;"></div> <!-- JS updates this -->
+                    </div>
+                    <span class="player-total-time">3:45</span>
+                </div>
+            </div>
+    
+            <div class="player-extra-controls">
+                 <!-- <button class="player-control-button shuffle-button" aria-label="Shuffle">
+                    <i class="fas fa-random"></i>
+                </button> -->
+                <button class="player-control-button repeat-button" aria-label="Repeat">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <div class="player-volume-control">
+                    <button class="player-control-button volume-icon-button" aria-label="Mute">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <!-- <input type="range" min="0" max="100" value="80" class="player-volume-slider" aria-label="Volume"> -->
+                </div>
+            </div>
+    
+            <!-- Expand/Collapse Button (could be part of mini-view-details or separate) -->
+            <button class="player-control-button expand-collapse-button" aria-label="Expand Player">
+                <i class="fas fa-chevron-up"></i> <!-- Icon changes with state -->
+            </button>
+    
+        </div>
+        <!-- Hypothetical audio element - crucial for actual playback -->
+        <!-- <audio id="audioPlayerElement" src="path/to/your/song.mp3"></audio> -->
+    </div>
+
+
+    <script src="index.js"></script>
+
+</body>
+</html>
